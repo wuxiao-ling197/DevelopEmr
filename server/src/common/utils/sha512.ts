@@ -48,5 +48,5 @@ export class CryptoContext {
 // TOTP验证
 export function TotpVilidate() {
   const secret = speakeasy.generateSecret({ length: 20 }).base32;
-  console.log('TOTP=', secret);
+  console.log('TOTPHHH=', secret);
 }
