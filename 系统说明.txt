@@ -1,0 +1,9 @@
+目标：EMR系统。
+
+账号：admin odoo18
+项目启动：
+后端 ：cd server ; yarn ; yarn start:dev
+前端： cd admin-vue3 ; npm install ; npm run dev 
+
+目前进展：切换到odoo用户部门表，实现与odoo、casdoor密码验证。PS：casdoor可与odoo成功验证。
+写下来的任务：实现totp登录和EMR电子病历。
