@@ -1,6 +1,8 @@
 import { createWebHistory, createRouter } from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
+import doctorRouter from './modules/doctor';
+import nurseRouter from './modules/nurse';
 
 /**
  * Note: 路由配置项
@@ -73,7 +75,7 @@ export const constantRoutes = [
   {
     path: '/user',
     component: Layout,
-    hidden: true,
+    // hidden: true,
     redirect: 'noredirect',
     children: [
       {
@@ -83,7 +85,7 @@ export const constantRoutes = [
         meta: { title: '个人中心', icon: 'user' }
       }
     ]
-  }
+  },
 ]
 
 // 动态路由，基于用户权限动态去加载
