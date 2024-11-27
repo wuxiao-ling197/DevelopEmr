@@ -5,24 +5,26 @@ import 'nprogress/nprogress.css'
 import { getToken } from '@/utils/auth'
 import { isHttp } from '@/utils/validate'
 import { isRelogin } from '@/utils/request'
-import useUserStore from '@/store/modules/user'
 import useSettingsStore from '@/store/modules/settings'
 import usePermissionStore from '@/store/modules/permission'
+import useUserStore from '@/store/modules/user';
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ['/login', '/register', '/smscode', '/moreinfo'];
+const whiteList = ['/login', '/register', '/smscode', '/moreinfo', '/auth/totp/verify'];
 
+// 全局路由前置守卫 当一个导航被触发时，首先被调用的总是全局前置守卫;
 router.beforeEach((to, from, next) => {
   NProgress.start()
-  if (getToken()) {
+  if (getToken() && useUserStore().isValid) {
     to.meta.title && useSettingsStore().setTitle(to.meta.title)
-    /* has token*/
+    /* has token isValid标识totp验证结果*/
     if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
-    } else {
-      if (useUserStore().roles.length === 0) {
+      // next({ path: '/' })
+      next({path:'/auth/totp/verify'}) //11.13 update
+    } 
+    else {
+      if (useUserStore().roles.length === 0 ) {
         isRelogin.show = true
         // 判断当前用户是否已拉取完user_info信息
         useUserStore().getInfo().then(() => {
