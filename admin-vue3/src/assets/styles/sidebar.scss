@@ -1,10 +1,13 @@
 #app {
-
   .main-container {
     height: 100%;
     transition: margin-left .28s;
     margin-left: $base-sidebar-width;
     position: relative;
+    transition: margin-top .28s;
+    &.hasTopHeader{
+      margin-top: $top-header-height;
+    }
   }
 
   .sidebarHide {
@@ -26,7 +29,11 @@
     overflow: hidden;
     -webkit-box-shadow: 2px 0 6px rgba(0,21,41,.35);
     box-shadow: 2px 0 6px rgba(0,21,41,.35);
-
+    transition: top .28s;
+    &.hasTopHeader{
+      // 如果有topHeader
+      top: $top-header-height;
+    }
     // reset element-ui css
     .horizontal-collapse-transition {
       transition: 0s width ease-in-out, 0s padding-left ease-in-out, 0s padding-right ease-in-out;

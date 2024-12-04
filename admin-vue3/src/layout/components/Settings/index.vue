@@ -69,6 +69,14 @@
         <el-switch v-model="dynamicTitle" class="drawer-switch" />
       </span>
     </div>
+    <!-- try start -->
+    <div class="drawer-item">
+      <span>开启 Top-Header-Views</span>
+      <span class="comp-style">
+        <el-switch v-model="topHeaderView" class="drawer-switch" />
+      </span>
+    </div>
+    <!-- try end -->
 
     <el-divider />
 
@@ -141,6 +149,14 @@ const dynamicTitle = computed({
   }
 })
 
+/**是否需要显示最顶部的列表框 */
+const topHeaderView = computed({
+  get: () => storeSettings.value.topHeaderView,
+  set: (val) => {
+    settingsStore.changeSetting({ key: 'topHeaderView', value: val })
+  }
+})
+
 function themeChange(val) {
   settingsStore.changeSetting({ key: 'theme', value: val })
   theme.value = val;
@@ -159,7 +175,8 @@ function saveSetting() {
     "sidebarLogo": storeSettings.value.sidebarLogo,
     "dynamicTitle": storeSettings.value.dynamicTitle,
     "sideTheme": storeSettings.value.sideTheme,
-    "theme": storeSettings.value.theme
+    "theme": storeSettings.value.theme,
+    "topHeaderView": storeSettings.value.topHeaderView,
   };
   localStorage.setItem("layout-setting", JSON.stringify(layoutSetting));
   setTimeout(proxy.$modal.closeLoading(), 1000)

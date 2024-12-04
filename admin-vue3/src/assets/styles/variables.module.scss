@@ -43,6 +43,7 @@ $--color-danger: #F56C6C;
 $--color-info: #909399;
 
 $base-sidebar-width: 200px;
+$top-header-height: 150px;
 
 // the :export directive is the magic sauce for webpack
 // https://www.bluematador.com/blog/how-to-share-variables-between-js-and-sass
@@ -55,6 +56,7 @@ $base-sidebar-width: 200px;
   subMenuBackground: $base-sub-menu-background;
   subMenuHover: $base-sub-menu-hover;
   sideBarWidth: $base-sidebar-width;
+  topHeaderHeight: $top-header-height;
   logoTitleColor: $base-logo-title-color;
   logoLightTitleColor: $base-logo-light-title-color;
   primaryColor: $--color-primary;

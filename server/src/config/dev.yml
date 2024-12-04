@@ -28,7 +28,7 @@ cos:
 # 数据库配置
 db:
   postgres:
-    host: 'localhost'
+    host: '192.168.0.30'
     username: 'nest'
     password: 'nest'
     database: 'nest'

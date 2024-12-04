@@ -38,6 +38,11 @@ export default {
   dynamicTitle: false,
 
   /**
+   * 是否显示顶部窗口
+   */
+  topHeaderView: false,
+
+  /**
    * @type {string | array} 'production' | ['production', 'development']
    * @description Need show err logs component.
    * The default is only used in the production env
