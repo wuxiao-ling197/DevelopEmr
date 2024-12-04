@@ -10,7 +10,7 @@ import { PermissionGuard } from 'src/common/guards/permission.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 
 import { AuthModule } from './module/system/auth/auth.module';
-import { UserModule } from './module/system/user/user.module';
+// import { UserModule } from './module/system/user/user.module';
 import { ToolModule } from './module/system/tool/tool.module';
 // import { DeptModule } from './module/system/dept/dept.module';
 import { DictModule } from './module/system/dict/dict.module';
@@ -30,6 +30,7 @@ import { ServerModule } from './module/monitor/server/server.module';
 import { UploadModule } from './module/upload/upload.module';
 import { HrDeptModule } from './module/share/hrdept/hrdept.module';
 import { ResUserModule } from './module/share/resuser/resuser.module';
+import { MfaModule } from './module/mfa/mfa.module';
 
 @Global()
 @Module({
@@ -108,6 +109,7 @@ import { ResUserModule } from './module/share/resuser/resuser.module';
     LoginlogModule,
     OperlogModule,
     AxiosModule,
+    MfaModule, //自定义totp路由 11.12 update
     OnlineModule,
     ServerModule,
     UploadModule,

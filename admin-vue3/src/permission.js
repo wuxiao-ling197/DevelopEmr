@@ -16,12 +16,12 @@ const whiteList = ['/login', '/register', '/smscode', '/moreinfo', '/auth/totp/v
 // 全局路由前置守卫 当一个导航被触发时，首先被调用的总是全局前置守卫;
 router.beforeEach((to, from, next) => {
   NProgress.start()
+  // 判断条件中加入totp认证状态的更新 useUserStore().isValid以确保用户同时获取token和完成totp认证
   if (getToken() && useUserStore().isValid) {
     to.meta.title && useSettingsStore().setTitle(to.meta.title)
     /* has token isValid标识totp验证结果*/
     if (to.path === '/login') {
-      // next({ path: '/' })
-      next({path:'/auth/totp/verify'}) //11.13 update
+      next({ path: '/' })
     } 
     else {
       if (useUserStore().roles.length === 0 ) {

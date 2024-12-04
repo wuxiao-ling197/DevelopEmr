@@ -9,7 +9,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isLeapYear); // 使用插件
 dayjs.locale('zh-cn'); // 使用本地化语言
-dayjs.tz.setDefault('Asia/Beijing');
+dayjs.tz.setDefault('Asia/Shanghai');
 
 import { DataScopeEnum } from '../enum/index';
 
@@ -28,21 +28,27 @@ export function ListToTree(arr, getId, getLabel) {
     m = {
       id: getId(m),
       label: getLabel(m),
-      parentId: +m.parentId,
+      parentId: +m.parentId, //m.parentId === null ? 0 : +m.parentId, // 处理 null 和数字
     };
+
+    kData[m.id] = kData[m.id] || m;
+
     kData[m.id] = {
       id: m.id,
       label: m.label,
       parentId: m.parentId,
     };
     if (m.parentId === 0) {
+      // 处理父节点
       lData.push(kData[m.id]);
     } else {
-      kData[m.parentId] = kData[m.parentId] || {};
+      kData[m.parentId] = kData[m.parentId] || { id: m.parentId, children: [] };
       kData[m.parentId].children = kData[m.parentId].children || [];
       kData[m.parentId].children.push(kData[m.id]);
     }
   });
+  // console.log('转化树kData：', kData['1968']);
+  // console.log('转化树lData：', lData);
   return lData;
 }
 

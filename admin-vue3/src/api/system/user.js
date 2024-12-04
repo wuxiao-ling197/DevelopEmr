@@ -20,7 +20,6 @@ export function getUser(userId) {
 
 // 新增用户  用户新增操作时调用
 export function addUser(data) {
-  console.log('add api=', data);
   return request({
     url: '/system/user',
     method: 'post',
@@ -41,6 +40,22 @@ export function updateUser(data) {
 export function delUser(userId) {
   return request({
     url: '/system/user/' + userId,
+    method: 'delete'
+  })
+}
+
+// 启用用户TOTP
+export function createTotp(userId) {
+  return request({
+    url: '/auth/totp/enable/'+ userId,
+    method: 'get'
+  })
+}
+
+// 关闭用户TOTP
+export function closeTotp(userId) {
+  return request({
+    url: '/auth/totp/disable/'+ userId,
     method: 'delete'
   })
 }

@@ -38,6 +38,12 @@
                         <div class="pull-right">{{ state.roleGroup || "未分配" }}</div>
                      </li>
                      <li class="list-group-item">
+                        <svg-icon icon-class="totp" />双重验证
+                        <div class="pull-right">
+                           <el-switch disabled v-model="totp_enable" style="padding-bottom:15px ;" @change="onTotp(totp_enable)"></el-switch>
+                        </div>
+                     </li>
+                     <li class="list-group-item">
                         <svg-icon icon-class="date" />创建日期
                         <div class="pull-right">{{ parseTime(state.user.createDate)}}</div>
                      </li>
@@ -70,11 +76,11 @@
 import userAvatar from "./userAvatar";
 import userInfo from "./userInfo";
 import resetPwd from "./resetPwd";
-import { getUserProfile } from "@/api/system/user";
+import { getUserProfile, createTotp, closeTotp } from "@/api/system/user";
 import { ref } from "vue";
 
 const activeTab = ref("userinfo");
-// const user = ref(null);
+const totp_enable = ref(false);
 const state = reactive({
   user: {},
   employee: {},
@@ -86,12 +92,17 @@ const state = reactive({
 function getUser() {
    //调用api函数getUserProfile， 同时response接收函数的返回值 response的结构与后端返回值一致
   getUserProfile().then(response => {
-    console.log('getUserProfile response=', response.data);
+   //  console.log('getUserProfile response=', response.data, typeof(response.data.companys));
     state.user = response.data;
     state.employee = response.data.employee || null;
-    state.companyGroup = response.data.companys.map(comp=>comp.name);
+    if(typeof(response.data.companys) == 'object'){
+      state.companyGroup = response.data.companys.name;
+    }else{
+      state.companyGroup = response.data.companys.map(comp=>comp.name)
+    }
     state.department = response.data.employee.department || null;
     state.roleGroup = response.data.roles.map(role=>role.roleName);
+    if(state.user.nestSecret !=null) totp_enable.value = true;
    // 传递数据给子组件
    //  user=state.employee;
   }).catch(error => {
@@ -99,9 +110,25 @@ function getUser() {
 });
 };
 
+function onTotp(value){
+   console.log('totp=', value);
+   //调用totp API enable
+   if(value){
+      createTotp(state.user.id).then((res)=>{
+
+      })
+   }else{
+      //当关闭时
+      closeTotp((state.user.id)).then((res)=>{
+
+      })
+   }
+   
+}
+
 function updateAvatar(url) {
   state.user.avatar = url;
-  console.log('---------->>>>>',state.user)
+  console.log('---------->>>>>avatar=',state.user)
 };
 
 getUser();
