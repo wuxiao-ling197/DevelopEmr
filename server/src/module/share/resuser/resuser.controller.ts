@@ -44,8 +44,6 @@ export class ResUserController {
     summary: '个人中心-修改密码',
   })
   @RequirePermission('system:user:edit')
-  // 11.1 update
-  // @RequirePermission(['*:*:*', 'system:user:edit'])
   @Put('/profile/updatePwd')
   updatePwd(@Request() req, @Body() updatePwdDto: UpdatePwdDto) {
     const user = req.user;

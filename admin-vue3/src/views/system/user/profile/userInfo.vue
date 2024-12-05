@@ -1,9 +1,9 @@
 <template>
    <el-form ref="userRef" :model="user" :rules="rules" label-width="80px">
-      <el-form-item label="用户昵称" prop="login">
+      <el-form-item label="用户名称" prop="login">
          <el-input v-model="user.name" maxlength="30" />
       </el-form-item>
-      <el-form-item label="手机号码" prop="workPhone">
+      <el-form-item label="电话" prop="workPhone">
          <el-input v-model="user.workPhone" maxlength="11" />
       </el-form-item>
       <el-form-item label="邮箱" prop="workEmail">
@@ -32,15 +32,10 @@ const props = defineProps({
     type: Object,
   }
 });
-console.log('profile-userInfo=', props.user);
-
-// 创建一个本地响应式用户数据，用于表单绑定
-// const user = ref({ ...props.user });
-
 const { proxy } = getCurrentInstance();
 
 const rules = ref({
-  login: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+  name: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
   workEmail: [{ required: true, message: "邮箱地址不能为空", trigger: "blur" }, { type: "email", message: "请输入正确的邮箱地址", trigger: ["blur", "change"] }],
   workPhone: [{ required: true, message: "手机号码不能为空", trigger: "blur" }, { pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/, message: "请输入正确的手机号码", trigger: "blur" }],
 });
@@ -54,12 +49,10 @@ const rules = ref({
 /** 提交按钮 */
 function submit() {
   // props.user.name=
-  proxy.$refs.userRef.validate(valid => {
-    console.log('profile-userinfo update=',valid, props.user);
-    
+  proxy.$refs.userRef.validate(valid => {    
     if (valid) {
       updateUserProfile(props.user).then(response => {
-        proxy.$modal.msgSuccess("修改成功");
+        proxy.$modal.msgSuccess("修改成功，要查看修改后的信息请退出系统重新登录哦！");
       });
     }
   });

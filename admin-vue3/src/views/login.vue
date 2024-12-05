@@ -148,7 +148,6 @@ function handleLogin() {
       loginForm.model.uuid = authCodeInfo.uuid;
       // 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码，否则移除
       useAuthCode.setUserCookie(loginForm.model);
-      console.log("状态管理=", userStore);
       // 调用action的登录方法
       userStore
         .login(loginForm.model)
@@ -156,7 +155,6 @@ function handleLogin() {
           // router.push({ path: redirect.value || '/' })
           // 调用action的登录方法
           // 进行totp验证
-          console.log("表单=", loginForm.model);
           validCode(loginForm.model);
         })
         .catch(() => {
@@ -170,7 +168,6 @@ function validCode(value) {
   validateTotp(value).then((response) => {
     qrCodeBase64.value = response.data.qrCodeDataURL;
     authCodeInfo.qrCode = response.data.qrCodeDataURL;
-    console.log("qrCode=", authCodeInfo);
 
     if (response.data.verify) {
       ElMessage({

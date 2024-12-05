@@ -776,21 +776,18 @@ watch(deptName, (val) => {
 /** 查询部门下拉树结构 */
 function getDeptTree() {
   deptTreeSelect().then((response) => {
-    console.log('部门树=', response.data);
     deptOptions.value = response.data;
   });
 }
 /** 查询公司下拉树结构 */
 function getCompTree() {
   compTreeSelect().then((response) => {
-    console.log("公司树=", response.data);
     compOptions.value = response.data;
   });
 }
 /**查询系统角色项 */
 function getAllRole(){
    roleTreeSelect().then(response => {
-   console.log('角色列表=', response.data);
    roleOptions.value = response.data.roles;
   });
 }
@@ -799,15 +796,11 @@ function getList() {
   loading.value = true;
   listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(
     (res) => {
-      console.log("getList页面=", res);
       loading.value = false;
       userList.value = res.data.list;
       total.value = res.data.total;
     }
   );
-  //   .catch(error => {
-  //     console.log('Error fetching user list:', error);
-  // });
 }
 /** 节点单击事件 */
 function handleNodeClick(data) {
@@ -1012,7 +1005,6 @@ function handleUpdate(row) {
   const userId = row.id || ids.value;
   getUser(userId).then((res) => {
     const response = res.data;
-    console.log('修改按钮操作=', response);
     
     open.value = true;
     title.value = "修改用户";

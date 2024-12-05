@@ -27,10 +27,8 @@ const user = reactive({
   newPassword: undefined,
   confirmPassword: undefined
 });
-console.log('表单密码=',user);
 
-
-const equalToPassword = (rules, value, callback) => {
+const equalToPassword = (rule, value, callback) => {
   if (user.newPassword !== value) {
     callback(new Error("两次输入的密码不一致"));
   } else {
@@ -48,7 +46,7 @@ function submit() {
   proxy.$refs.pwdRef.validate(valid => {
     if (valid) {
       updateUserPwd(user.oldPassword, user.newPassword).then(response => {
-        proxy.$modal.msgSuccess("修改成功");
+        proxy.$modal.msgSuccess("修改成功，请退出系统重新登录！");
       });
     }
   });

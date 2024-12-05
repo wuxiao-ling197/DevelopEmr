@@ -15,14 +15,14 @@
                   <ul class="list-group list-group-striped">
                      <li class="list-group-item">
                         <svg-icon icon-class="user" />用户名称
-                        <div class="pull-right">{{ state.user.login }}</div>
+                        <div class="pull-right">{{ state.employee.name }}</div>
                      </li>
                      <li class="list-group-item">
-                        <svg-icon icon-class="phone" />手机号码
+                        <svg-icon icon-class="phone" />工作电话
                         <div class="pull-right">{{ state.employee.workPhone }}</div>
                      </li>
                      <li class="list-group-item">
-                        <svg-icon icon-class="email" />用户邮箱
+                        <svg-icon icon-class="email" />工作邮箱
                         <div class="pull-right">{{ state.employee.workEmail }}</div>
                      </li>
                      <li class="list-group-item">
@@ -108,7 +108,6 @@ function getUser() {
 };
 
 function onTotp(value){
-   console.log('totp=', value);
    //调用totp API enable
    if(value){
       createTotp(state.user.id).then((res)=>{

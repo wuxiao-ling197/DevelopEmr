@@ -74,7 +74,6 @@ export class ResUserService {
    * @returns
    */
   async create(createUserDto: CreateResUserDto, user: any) {
-    console.log('用户列表新建：', user.userId, createUserDto);
     const createDate = GetNowDate();
     if (createUserDto.password) {
       // createUserDto.password = await this.pwdContext.hash(createUserDto.password); //10.29 update
@@ -87,7 +86,6 @@ export class ResUserService {
       },
     });
     if (iscz) {
-      console.log(iscz);
       ResultData.fail(500, '用户已存在,请重新命名');
     }
     const newUser = new ResUserEntity();
@@ -97,7 +95,6 @@ export class ResUserService {
     // const res = await this.userRepo.save({ ...newUser, createDate, createUid: user.id, companyId: createUserDto.companyId, partnerId: 1 });
     const res = await this.userRepo.save({ ...newUser, createDate, createUid: user.userId, companyId: createUserDto.companyId, partnerId: 1 });
 
-    console.log('规范格式create pwd=', newUser.password);
     // 还要处理一下有员工和无员工的问题
     const isexist = await this.employeeEntityRep.createQueryBuilder('hr').where('hr.name = :name', { name: createUserDto.name }).getOne();
     // 如果已有员工
@@ -287,8 +284,6 @@ export class ResUserService {
       .getOne();
 
     const roleIds = await this.getRoleIds([userId]);
-    console.log('用户获取角色ID：', roleIds);
-
     const allRoles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
 
     // 筛选出roleid指向的role对象存入data.roles
@@ -296,7 +291,6 @@ export class ResUserService {
     let companys = null;
     const cu = await this.userWithcompanyEntityRep.createQueryBuilder('cu').where('cu.userId = :uid', { uid: userId }).getMany();
     const cIds = cu.map((item) => item.cid);
-    console.log(cIds);
     // 10.30 update
     if (cu && cIds.length > 0) {
       const cIds = cu.map((item) => item.cid);
@@ -378,6 +372,7 @@ export class ResUserService {
     // delete (updateUserDto as any).id;
     delete (updateUserDto as any).login;
     //更新用户信息
+    console.log('updateUserDto=', updateUserDto);
     const data = await this.employeeEntityRep.update(
       { userId: updateUserDto.id },
       {
@@ -389,6 +384,12 @@ export class ResUserService {
         gender: updateUserDto.gender,
         employeeType: updateUserDto.employeeType,
         marital: updateUserDto.marital,
+      },
+    );
+    await this.userRepo.update(
+      { id: updateUserDto.id },
+      {
+        companyId: updateUserDto.companyId,
       },
     ); //正确返回内容应为：{ generatedMaps: [], raw: [], affected: 1 }
     return ResultData.ok(data);
@@ -728,17 +729,16 @@ export class ResUserService {
         return ResultData.fail(500, '系统管理员不可停用');
       }
 
-      // const res = await this.userRepo.update(
-      //   { id: changeStatusDto.id },
-      //   {
-      //     active: changeStatusDto.active,
-      //   },
-      // );
-      const res = await this.userRepo.createQueryBuilder('user').update(ResUserEntity).set({ active: changeStatusDto.active }).where('user.id = :id', { id: changeStatusDto.id }).execute();
+      const res = await this.userRepo.update(
+        { id: changeStatusDto.id },
+        {
+          active: changeStatusDto.active,
+        },
+      );
+      // const res = await this.userRepo.createQueryBuilder('user').update(ResUserEntity).set({ active: changeStatusDto.active }).where('user.id = :id', { id: changeStatusDto.id }).execute();
       console.log('后端changeUserStatus update user=', res);
       return ResultData.ok(res);
     } catch (error) {
-      console.log('changestatus error=', error);
       return ResultData.fail(500, error);
     }
   }
@@ -914,11 +914,16 @@ export class ResUserService {
    * @returns
    */
   async updateProfile(user: any, updateProfileDto: UpdateProfileDto) {
-    await this.userRepo.update({ id: user.user.id }, updateProfileDto);
+    // await this.userRepo.update({ id: user.user.id }, { login: updateProfileDto.login });
+    // delete updateProfileDto.login;
+    await this.employeeEntityRep.update(
+      { id: user.user.id },
+      { name: updateProfileDto.name, workEmail: updateProfileDto.workEmail, workPhone: updateProfileDto.workPhone, gender: updateProfileDto.gender },
+    );
     const userData = await this.redisService.get(`${CacheEnum.LOGIN_TOKEN_KEY}${user.token}`);
-    userData.user.nickName = updateProfileDto.login;
+    userData.user.name = updateProfileDto.name;
     userData.user.email = updateProfileDto.workEmail;
-    userData.user.phonenumber = updateProfileDto.mobilePhone;
+    userData.user.phonenumber = updateProfileDto.workPhone;
     userData.user.sex = updateProfileDto.gender;
     await this.redisService.set(`${CacheEnum.LOGIN_TOKEN_KEY}${user.token}`, userData);
     return ResultData.ok();
@@ -931,24 +936,18 @@ export class ResUserService {
    * @returns
    */
   async updatePwd(user: any, updatePwdDto: UpdatePwdDto) {
-    console.log('到达后端逻辑 个人中心修改密码=', user);
+    console.log('到达后端逻辑 个人中心修改密码=', user.user, updatePwdDto);
     if (updatePwdDto.oldPassword === updatePwdDto.newPassword) {
       return ResultData.fail(500, '新密码不能与旧密码相同');
     }
-    // if (updatePwdDto.confirmnewPassword !== updatePwdDto.newPassword) {
-    //   return ResultData.fail(500, '输入密码不相同,请重新输入');
-    // }
-    // if (bcrypt.compareSync(user.user.password, updatePwdDto.oldPassword)) {
-    // 校验旧密码是否正确
-    if (this.pwdContext.verifyPasslib(updatePwdDto.oldPassword, user.user.password)) {
+    const valid = await this.pwdContext.verifyPasslib(updatePwdDto.oldPassword, user.user.password);
+    if (valid) {
+      const hashPassword = await this.pwdContext.hashPassword(updatePwdDto.newPassword);
+      await this.userRepo.update({ id: user.userId }, { password: hashPassword });
+      return ResultData.ok();
+    } else {
       return ResultData.fail(500, '修改密码失败，旧密码错误');
     }
-
-    // const password = await bcrypt.hashSync(updatePwdDto.newPassword, bcrypt.genSaltSync(10));
-    const hashPassword = '$pbkdf2-sha512$600000$o1pCwx.Xy96z8UYk/zB9Ig$Jp0rPFPXjN1/9.glni1RD1dLXtDdp/lCvWyW03Fw6vjAuPAvhfNojIWBFCpLICycDWzNdhVp3QrrHE6J4slzfg';
-    // const hashPassword = await this.pwdContext.hash(updatePwdDto.newPassword); //10.29 update
-    await this.userRepo.update({ id: user.user.userId }, { password: hashPassword });
-    return ResultData.ok();
   }
 
   /**

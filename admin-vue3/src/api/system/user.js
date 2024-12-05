@@ -96,7 +96,6 @@ export function getUserProfile() {
 
 // 修改用户个人信息
 export function updateUserProfile(data) {
-  console.log('api update userinfo=', data);
   return request({
     url: '/system/user/profile',
     method: 'put',
@@ -114,7 +113,7 @@ export function updateUserPwd(oldPassword, newPassword) {
   return request({
     url: '/system/user/profile/updatePwd',
     method: 'put',
-    params: data
+    data: data
   })
 }
 

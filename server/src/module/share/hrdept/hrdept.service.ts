@@ -41,7 +41,6 @@ export class HrDeptService {
     entity.where('entity.available = :available', { available: true });
 
     if (query.name) {
-      console.log('dept name=', query.name);
       entity.andWhere('entity.name LIKE :name', { name: `%${query.name}%` });
     }
     if (query.available) {
@@ -87,7 +86,7 @@ export class HrDeptService {
       }
       // 执行查询并获取结果
       const list = await entity.getMany();
-      console.log('部门权限=', list);
+      // console.log('部门权限=', list);
 
       // 将查询结果映射为部门ID数组后返回
       return list.map((item) => item.id);
