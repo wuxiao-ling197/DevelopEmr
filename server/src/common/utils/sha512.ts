@@ -24,7 +24,6 @@ export class CryptoContext {
     const salt = randomBytes(this.saltBytes);
     const hash = pbkdf2Sync(password, salt, this.iterations, this.hashBytes, this.digest).toString('base64');
     let format = ['$pbkdf2-sha512', this.iterations, salt.toString('base64'), hash].join('$');
-    console.log(format);
     format = format.replace(/\+/g, '.').replace(/\=/g, '');
     return format;
   }

@@ -24,7 +24,6 @@ const useUserStore = defineStore(
       login(userInfo) {
         const username = userInfo.username.trim()
         const password = userInfo.password
-        // const code = userInfo.code
         const uuid = userInfo.uuid
         return new Promise((resolve, reject) => {
           login(username, password, uuid).then(res => {            
@@ -41,8 +40,7 @@ const useUserStore = defineStore(
       getInfo() {
         return new Promise((resolve, reject) => {
           getInfo().then(res => {
-            console.log('getInfo res=', res);
-            // res的返回结果与后端路由函数getInfo（controllor层）定义的返回结构一致
+            console.log('获取登录用户信息=', res);
             const user = res.user
             // const avatar = (user.avatar == "" || user.avatar == null) ? defAva : import.meta.env.VITE_APP_BASE_API + user.avatar;
             
@@ -52,7 +50,7 @@ const useUserStore = defineStore(
             } else {
               this.roles = ['ROLE_DEFAULT']
             }
-            this.login = user.login
+            this.loginuser = user.login
             // this.avatar = avatar;
             resolve(res)
           }).catch(error => {

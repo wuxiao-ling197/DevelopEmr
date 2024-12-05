@@ -161,9 +161,9 @@ export function compTreeSelect() {
 }
 
 // // 查询角色结构
-// export function roleTreeSelect() {
-//   return request({
-//     url: '/system/user/roleTree',
-//     method: 'get'
-//   })
-// }
+export function roleTreeSelect() {
+  return request({
+    url: '/system/user/roleTree',
+    method: 'get'
+  })
+}

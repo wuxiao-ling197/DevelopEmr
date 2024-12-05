@@ -1,8 +1,6 @@
 import { createWebHistory, createRouter } from 'vue-router'
 /* Layout */
 import Layout from '@/layout'
-import doctorRouter from './modules/doctor';
-import nurseRouter from './modules/nurse';
 
 /**
  * Note: 路由配置项
