@@ -92,19 +92,16 @@ const state = reactive({
 function getUser() {
    //调用api函数getUserProfile， 同时response接收函数的返回值 response的结构与后端返回值一致
   getUserProfile().then(response => {
-   //  console.log('getUserProfile response=', response.data, typeof(response.data.companys));
     state.user = response.data;
     state.employee = response.data.employee || null;
-    if(typeof(response.data.companys) == 'object'){
+    if(response.data.companys.length == 1){
       state.companyGroup = response.data.companys.name;
     }else{
-      state.companyGroup = response.data.companys.map(comp=>comp.name)
+      state.companyGroup = response.data.companys.map(comp=>comp.name).join('  ');
     }
     state.department = response.data.employee.department || null;
-    state.roleGroup = response.data.roles.map(role=>role.roleName);
+    state.roleGroup = response.data.roles.map(role=>role.roleName).join(',');
     if(state.user.nestSecret !=null) totp_enable.value = true;
-   // 传递数据给子组件
-   //  user=state.employee;
   }).catch(error => {
     console.error('Error fetching user profile:', error);
 });

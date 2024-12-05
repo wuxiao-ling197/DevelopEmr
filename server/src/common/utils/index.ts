@@ -28,16 +28,34 @@ export function ListToTree(arr, getId, getLabel) {
     m = {
       id: getId(m),
       label: getLabel(m),
-      parentId: +m.parentId, //m.parentId === null ? 0 : +m.parentId, // 处理 null 和数字
+      parentId: +m.parentId,
     };
 
-    kData[m.id] = kData[m.id] || m;
+    // 处理重复项被覆盖的问题
+    if (kData[m.id]) {
+      const existNode = kData[m.id];
+      if (Array.isArray(existNode.label)) {
+        existNode.label.push(m.label);
+      } else {
+        existNode.label = m.label;
+      }
+    } else {
+      kData[m.id] = {
+        id: m.id,
+        label: m.label,
+        parentId: m.parentId,
+        children: m.children || [],
+      };
+    }
 
-    kData[m.id] = {
-      id: m.id,
-      label: m.label,
-      parentId: m.parentId,
-    };
+    // kData[m.id] = kData[m.id] || m;
+
+    // kData[m.id] = {
+    //   id: m.id,
+    //   label: m.label,
+    //   parentId: m.parentId,
+    // };
+
     if (m.parentId === 0) {
       // 处理父节点
       lData.push(kData[m.id]);
@@ -47,8 +65,6 @@ export function ListToTree(arr, getId, getLabel) {
       kData[m.parentId].children.push(kData[m.id]);
     }
   });
-  // console.log('转化树kData：', kData['1968']);
-  // console.log('转化树lData：', lData);
   return lData;
 }
 

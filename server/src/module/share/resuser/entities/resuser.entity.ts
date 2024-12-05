@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
 import { SharedEntity } from 'src/common/entities/shared';
 import { HrEmpEntity } from './hremp.entity';
@@ -25,6 +25,9 @@ export class ResUserEntity extends SharedEntity {
 
   @Column({ type: 'varchar', name: 'totp_secret' })
   public totpSecret: string;
+
+  @Column({ type: 'varchar', name: 'nest_secret' })
+  public nestSecret: string;
 
   @Column({ type: 'int', name: 'action_id', default: null, comment: '自定义菜单' })
   public actionId: number;
@@ -65,6 +68,10 @@ export class ResUserEntity extends SharedEntity {
   public employee: HrEmpEntity;
 
   @OneToOne(() => ResoureceEntity, (resource) => resource.user)
-  @JoinColumn({ name: 'id', referencedColumnName: 'userId' }) // 指定外键列,是实体中的定义名称
+  @JoinColumn({ name: 'id', referencedColumnName: 'userId' })
   public resource: ResoureceEntity;
+
+  //auth_totp-->user为多--->一
+  // @OneToMany(() => AuthTotpEntity, (authtotp) => authtotp.user)
+  // public authtotps: AuthTotpEntity[];
 }

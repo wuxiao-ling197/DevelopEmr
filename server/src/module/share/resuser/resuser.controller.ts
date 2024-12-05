@@ -6,6 +6,7 @@ import { RequireRole } from 'src/common/decorators/require-role.decorator';
 
 import { CreateResUserDto, UpdateResUserDto, ListResUserDto, ChangeStatusDto, ResetPwdDto, UpdateProfileDto, UpdatePwdDto } from './dto/index';
 import { ResUserService } from './resuser.service';
+import { MfaService } from 'src/module/mfa/mfa.service';
 // import { ListResUserDto } from './dto';
 
 /**
@@ -14,7 +15,10 @@ import { ResUserService } from './resuser.service';
 @ApiTags('用户管理')
 @Controller('system/user')
 export class ResUserController {
-  constructor(private readonly resuserService: ResUserService) {}
+  constructor(
+    private readonly resuserService: ResUserService,
+    private readonly mafService: MfaService,
+  ) {}
 
   @ApiOperation({
     summary: '个人中心-用户信息',
@@ -100,14 +104,14 @@ export class ResUserController {
     return this.resuserService.findEmpAndDeptAll();
   }
 
-  // @ApiOperation({
-  //   summary: '用户-角色',
-  // })
-  // @RequirePermission('system:user:add')
-  // @Get('roleTree')
-  // findRoleAll() {
-  //   return this.resuserService.findRoleAll();
-  // }
+  @ApiOperation({
+    summary: '用户-角色',
+  })
+  @RequirePermission('system:user:add')
+  @Get('roleTree')
+  findRoleAll() {
+    return this.resuserService.findRoleAll();
+  }
 
   @ApiOperation({
     summary: '用户-分配角色-详情',
@@ -115,8 +119,6 @@ export class ResUserController {
   @RequireRole('admin')
   @Get('authRole/:id')
   authRole(@Param('id') id: string) {
-    const rr = this.resuserService.authRole(+id);
-    console.log('分配角色向前端返回值=', rr);
     return this.resuserService.authRole(+id);
   }
 

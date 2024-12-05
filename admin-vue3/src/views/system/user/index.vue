@@ -456,10 +456,10 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="归属部门" prop="departmentName">
+            <el-form-item label="归属部门" prop="departmentId">
               <!--v-if="form.employee&&form.employee.department" form.employee.department.name.zh_CN" -->
               <el-tree-select
-                v-model="form.departmentName"
+                v-model="form.departmentId"
                 :data="deptOptions"
                 :props="{ value: 'id', label: 'label', children: 'children' }"
                 value-key="id"
@@ -581,16 +581,6 @@
             </el-form-item>
           </el-col>
         </el-row>
-        <!-- <el-row>
-               <el-col :span="12">
-                  <el-form-item label="状态" prop="active">
-                     <el-radio-group v-model="form.active">
-                        <el-radio label="true">正常</el-radio>
-                        <el-radio label="false">停用</el-radio>
-                     </el-radio-group>
-                  </el-form-item>
-               </el-col>
-            </el-row> -->
       </el-form>
       <template #footer>
         <div class="dialog-footer">
@@ -662,6 +652,7 @@ import {
   addUser,
   compTreeSelect,
   deptTreeSelect,
+  roleTreeSelect,
   createTotp,
   closeTotp,
 } from "@/api/system/user";
@@ -691,11 +682,10 @@ const dateRange = ref([]);
 const deptName = ref("");
 const deptOptions = ref(undefined);
 const compOptions = ref(undefined);
-const initPassword = ref("123456");
+const initPassword = ref("123456"); //所有新建用户的初始密码
 const postOptions = ref([]);
 const roleOptions = ref([]);
 const isDisabled = ref(false);
-// const employeeTypes = EMPLOYEE_USER_TYPE;
 /*** 用户导入参数 */
 const upload = reactive({
   // 是否显示弹出层（用户导入）
@@ -737,7 +727,8 @@ const data = reactive({
     name: undefined,
     workPhone: undefined,
     active: undefined,
-    departmentName: undefined,
+    // departmentName: undefined,
+    departmentId: undefined,
     companyId: undefined,
   },
   rules: {
@@ -751,6 +742,7 @@ const data = reactive({
       },
     ],
     name: [{ required: true, message: "用户昵称不能为空", trigger: "blur" }],
+    departmentId: [{ required: true, message: "用户部门不能为空", trigger: "blur" }],
     //  password: [{ required: true, message: "用户密码不能为空", trigger: "blur" }, { min: 5, max: 20, message: "用户密码长度必须介于 5 和 20 之间", trigger: "blur" }],
     workEmail: [
       {
@@ -796,18 +788,18 @@ function getCompTree() {
   });
 }
 /**查询系统角色项 */
-// function getAllRole(){
-//    roleTreeSelect().then(response => {
-//    console.log('角色列表=', response.data);
-//     roleOptions.value = response.data;
-//   });
-// }
+function getAllRole(){
+   roleTreeSelect().then(response => {
+   console.log('角色列表=', response.data);
+   roleOptions.value = response.data.roles;
+  });
+}
 /** 查询用户列表 */
 function getList() {
   loading.value = true;
   listUser(proxy.addDateRange(queryParams.value, dateRange.value)).then(
     (res) => {
-      console.log("页面=", res);
+      console.log("getList页面=", res);
       loading.value = false;
       userList.value = res.data.list;
       total.value = res.data.total;
@@ -889,7 +881,7 @@ function handleStatusChange(row) {
 
   let text = row.active === true ? "启用" : "停用";
   proxy.$modal
-    .confirm('确认要"' + text + '""' + row.login + '"用户吗?')
+    .confirm('确认要 ' + text + ' ' + row.login + '"用户吗?')
     .then(function () {
       return changeUserStatus(row.id, row.active);
     })
@@ -1007,51 +999,35 @@ function handleAdd() {
   reset();
   isDisabled.value = false;
   getUser().then((response) => {
-    //  postOptions.value = response.data.posts;
-    console.log("add form=", response);
-
-    // 新增按钮时系统角色项应该全部显示
-    roleOptions.value = response.data.roles;
-    //  roleOptions.value = response.roles;
-
     open.value = true;
     title.value = "添加用户";
     form.value.password = initPassword.value;
   });
 }
-function getRoles() {
-  listRole((1, 10)).then((response) => {
-    roleOptions.value = response.data.list;
-    console.log("add form get roles=", roleOptions.value);
-  });
-}
+
 /** 修改按钮操作 */
 function handleUpdate(row) {
   reset();
-  isDisabled.value = true;
+  // isDisabled.value = true;
   const userId = row.id || ids.value;
   getUser(userId).then((res) => {
     const response = res.data;
-
-    // 原角色项加载方法 10.31
-    roleOptions.value = response.data?.roles || "";
+    console.log('修改按钮操作=', response);
+    
     open.value = true;
     title.value = "修改用户";
-    //  form.password = ""; zh_CN
     this.form.id = userId;
-    this.form.departmentName =
-      response.data.employee?.department?.name.en_US || "";
+    // this.form.companyId = response.cpmpanys.id || "";
+    this.form.departmentId = response.data.employee?.department?.id || "";
     this.form.marital = response.data.employee?.marital || "";
     this.form.gender = response.data.employee?.gender || "";
     this.form.employeeType = response.data.employee?.employeeType || "";
     this.form.name = response.data.employee?.name || "";
     this.form.workEmail = response.data.employee?.workEmail || "";
     this.form.workPhone = response.data.employee?.workPhone || "";
-    //  this.form.virtual = response.data.mployee?.department?.virtual || "";
     this.form.login = response.data.login || "";
-    //  this.form.roles = roleOptions.value; //加载用户的角色信息 11.1修改为以下格式
     this.form.roles = response.roles || ""; //组件绑定的form.roles 中options :value=item.roleId, 因此传入的数据需要保证为roleId组成的数组
-    console.log("form.roles=", this.form.roles);
+    console.log("update user表单设置的roles=", this.form.roles);
     console.log("update res=", response);
 
     this.form.companyId = response.data.companyId || "";
@@ -1064,6 +1040,7 @@ function submitForm() {
   proxy.$refs["userRef"].validate((valid) => {
     if (valid) {
       if (form.value.id != undefined) {
+        console.log('updateUser form=', form.value);
         updateUser(form.value).then((response) => {
           proxy.$modal.msgSuccess("修改成功");
           open.value = false;
@@ -1082,6 +1059,7 @@ function submitForm() {
 
 getDeptTree();
 getCompTree();
-// getAllRole();
+// getRoles();
+getAllRole();
 getList();
 </script>
