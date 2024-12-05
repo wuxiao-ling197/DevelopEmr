@@ -936,7 +936,6 @@ export class ResUserService {
    * @returns
    */
   async updatePwd(user: any, updatePwdDto: UpdatePwdDto) {
-    console.log('到达后端逻辑 个人中心修改密码=', user.user, updatePwdDto);
     if (updatePwdDto.oldPassword === updatePwdDto.newPassword) {
       return ResultData.fail(500, '新密码不能与旧密码相同');
     }

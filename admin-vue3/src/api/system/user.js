@@ -109,7 +109,6 @@ export function updateUserPwd(oldPassword, newPassword) {
     oldPassword,
     newPassword
   }
-  console.log('->api 个人中心修改密码获取data=', data);
   return request({
     url: '/system/user/profile/updatePwd',
     method: 'put',
