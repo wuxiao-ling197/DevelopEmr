@@ -9,7 +9,7 @@ dayjs.extend(utc);
 dayjs.extend(timezone);
 dayjs.extend(isLeapYear); // 使用插件
 dayjs.locale('zh-cn'); // 使用本地化语言
-dayjs.tz.setDefault('Asia/Beijing');
+dayjs.tz.setDefault('Asia/Shanghai');
 
 import { DataScopeEnum } from '../enum/index';
 
@@ -30,15 +30,37 @@ export function ListToTree(arr, getId, getLabel) {
       label: getLabel(m),
       parentId: +m.parentId,
     };
-    kData[m.id] = {
-      id: m.id,
-      label: m.label,
-      parentId: m.parentId,
-    };
+
+    // 处理重复项被覆盖的问题
+    if (kData[m.id]) {
+      const existNode = kData[m.id];
+      if (Array.isArray(existNode.label)) {
+        existNode.label.push(m.label);
+      } else {
+        existNode.label = m.label;
+      }
+    } else {
+      kData[m.id] = {
+        id: m.id,
+        label: m.label,
+        parentId: m.parentId,
+        children: m.children || [],
+      };
+    }
+
+    // kData[m.id] = kData[m.id] || m;
+
+    // kData[m.id] = {
+    //   id: m.id,
+    //   label: m.label,
+    //   parentId: m.parentId,
+    // };
+
     if (m.parentId === 0) {
+      // 处理父节点
       lData.push(kData[m.id]);
     } else {
-      kData[m.parentId] = kData[m.parentId] || {};
+      kData[m.parentId] = kData[m.parentId] || { id: m.parentId, children: [] };
       kData[m.parentId].children = kData[m.parentId].children || [];
       kData[m.parentId].children.push(kData[m.id]);
     }

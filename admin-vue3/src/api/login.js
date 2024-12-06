@@ -46,14 +46,41 @@ export function logout() {
   })
 }
 
-// 获取验证码
-export function getCodeImg() {
+// 创建/获取totp
+export function createTotp() {
   return request({
-    url: '/captchaImage',
+    url: '/auth/totp/enable'+ userId,
     headers: {
       isToken: false
     },
     method: 'get',
+    data: data,
+    timeout: 20000
+  })
+}
+
+//获取totp认证码
+export function generatoeQRcode(data) {
+  return request({
+    url: '/auth/totp/qrcode',
+    headers: {
+      isToken: false
+    },
+    method: 'get',
+    data: data,
+    timeout: 20000
+  })
+}
+
+// 验证totp
+export function validateTotp(data) {
+  return request({
+    url: '/auth/totp/verify',
+    headers: {
+      isToken: false
+    },
+    method: 'post',
+    data: data,
     timeout: 20000
   })
 }

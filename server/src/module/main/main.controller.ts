@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, HttpCode, Request } from '@nestjs/common';
+import { Controller, Get, Post, Body, HttpCode, Request, Param } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody } from '@nestjs/swagger';
 import * as Useragent from 'useragent';
 import { MainService } from './main.service';
@@ -16,7 +16,10 @@ import { ResUserEntity } from '../share/resuser/entities/resuser.entity';
 import { HrDeptEntity } from '../share/hrdept/entities/hrdept.entity';
 import { ResUserService } from '../share/resuser/resuser.service';
 import { CompUserEntity } from '../share/resuser/entities/comuserrel';
-import { createHash, pbkdf2, randomBytes } from 'crypto';
+import { MfaService } from '../mfa/mfa.service';
+// import { sendMsg } from 'src/common/utils/robot';
+// import { OAmanageController } from '../share/OAmanage/oamanage.controller';
+// import { faceIdValid, faceIdValidWithPeriod, phoneStatus, phoneValid } from 'src/common/utils/faceid';
 
 @ApiTags('根目录')
 @Controller('/')
@@ -35,7 +38,8 @@ export class MainController {
     private readonly redisService: RedisService,
     private readonly configService: ConfigService,
     private readonly resuserService: ResUserService,
-  ) {}
+    private readonly mafService: MfaService,
+  ) { }
 
   // private verificationCodes = new Map<string, string>(); // 用于存储手机号和验证码的映射
 
@@ -98,39 +102,13 @@ export class MainController {
     return this.mainService.register(user);
   }
 
-  // 自定义函数
+  // 自定义函数 注册时发送短信验证码
   @ApiOperation({
     summary: '短信验证码',
   })
   @Post('/smscode')
   async smsCode(@Body() user: RegisterDto) {
     return this.mainService.smsCode(user);
-  }
-
-  @ApiOperation({
-    summary: '获取验证图片',
-  })
-  @Get('/captchaImage')
-  async captchaImage() {
-    //是否开启验证码
-    const enable = await this.configService.getConfigValue('sys.account.captchaEnabled');
-    const captchaEnabled: boolean = enable === 'true';
-    const data = {
-      captchaEnabled,
-      img: '',
-      uuid: '',
-    };
-    try {
-      if (captchaEnabled) {
-        const captchaInfo = createMath();
-        data.img = captchaInfo.data;
-        data.uuid = GenerateUUID();
-        await this.redisService.set(CacheEnum.CAPTCHA_CODE_KEY + data.uuid, captchaInfo.text.toLowerCase(), 1000 * 60 * 5);
-      }
-      return ResultData.ok(data, '操作成功');
-    } catch (err) {
-      return ResultData.fail(500, '生成验证码错误，请重试');
-    }
   }
 
   @ApiOperation({
@@ -163,10 +141,40 @@ export class MainController {
   })
   @Get('/moreinfo')
   async getEmployeeUserData() {
+    // faceIdValid({
+    //   IdCard: '500235200104145489',
+    //   Name: '王令',
+    // });
+    // faceIdValidWithPeriod({
+    //   IdCard: '500235200104145489',
+    //   Name: '王令',
+    //   ValidityBegin: '20160607',
+    //   ValidityEnd: '20250607',
+    // });
+    // phoneStatus({
+    //   Mobile: '15528434045',
+    //   Encryption: {
+    //     Algorithm: 'SM4-GCM',
+    //   },
+    // });
+    // phoneValid({
+    //   Type: '1', //0-手机号验证，1-身份证id、姓名认证
+    //   Mobile: '15528434045',
+    //   IdCard: '500235200104145489',
+    //   Name: '王令',
+    //   Encryption: {
+    //     Algorithm: 'SM4-GCM',
+    //   },
+    // });
+    // new OAmanageController().authenticate();
+    // new OAmanageController().search([['active', '=', 'true']]);
+    // new OAmanageController().list();
+    // new OAmanageController().write(7, { name: '执业护士' });
+    // new OAmanageController().create({ sequence: 10, company_id: 1, contract_type_id: 4, no_of_recruitment: 10, name: '医务秘书', department_id: 3 });
     // const employee = await this.userRepo
     //   .createQueryBuilder('user')
     //   .leftJoinAndSelect('user.employee', 'hr') // 联合查询
-    //   .where('user.id = :userId', { userId: 1907 })
+    //   .where('user.id = :userId', { userId: 2 })
     //   .andWhere('user.active = :active', { active: true })
     //   .getOne();
 
@@ -201,14 +209,14 @@ export class MainController {
     // const employee = await this.employeeEntityRep.createQueryBuilder('hr').leftJoinAndSelect('hr.user', 'user').select('hr.userId').where('hr.userId  = :userId', { userId: 2 }).getMany();
 
 
-    const userIds = [2, 1907, 1908, 1909];
-    const employee = await this.userRepo
-      .createQueryBuilder('user')
-      .leftJoinAndSelect('user.employee', 'hr')
-      .leftJoinAndSelect('hr.department', 'dept')
-      .where('user.id IN (:...userIds)', { userIds })
-      .andWhere('user.active = :active', { active: true })
-      .getMany();
+    // const userIds = [2, 1907, 1908, 1909];
+    // const employee = await this.userRepo
+    //   .createQueryBuilder('user')
+    //   .leftJoinAndSelect('user.employee', 'hr')
+    //   .leftJoinAndSelect('hr.department', 'dept')
+    //   .where('user.id IN (:...userIds)', { userIds })
+    //   .andWhere('user.active = :active', { active: true })
+    //   .getMany();
 
     // const employee = await this.userRepo.createQueryBuilder('user').where('user.id = :id', { id: 2320 }).getOne();
     // const employee = await this.resuserService.findAll();
@@ -231,7 +239,21 @@ export class MainController {
     // }
     // // employee.userId = 3;
     // await this.employeeEntityRep.save(employee);
+    //测试totp二维码url
+    const user = new LoginDto();
+    user.username = 'admin';
+    user.password = 'odoo18';
+    // const employee = this.mafService.createTotpcode(2, user);
+    // const ress = this.mafService.disableTotp(1906);
 
-    return ResultData.ok(employee, 'odoo查询成功');
+    // 直接在Repository 上进行update操作
+    // const employee = await this.userRepo.update(2, { rankId: 1 });
+    // const employee = await this.userRepo.findOne({
+    //   where: { login: 'admin' },
+    // // });
+    // const code = await this.mafService.createTotpcode(employee.id, employee);
+    // const result = await this.mafService.validateTotp({ code: '123456', username: 'admin', firstValidate: true });
+    // sendMsg('3372425446@qq.com', '15528434045', code.qrcode);
+    return ResultData.ok(user, 'odoo查询成功');
   }
 }

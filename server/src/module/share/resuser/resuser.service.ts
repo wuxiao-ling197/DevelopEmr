@@ -1,4 +1,4 @@
-import { Repository, In, Not, Like } from 'typeorm';
+import { Repository, In, Not, Like, Int32 } from 'typeorm';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { JwtService } from '@nestjs/jwt';
@@ -24,9 +24,7 @@ import {
   AuthUserSelectAllDto,
 } from './dto/index';
 import { RegisterDto, LoginDto, ClientInfoDto } from '../../main/dto/index';
-// import { AuthUserCancelDto, AuthUserCancelAllDto, AuthUserSelectAllDto } from '../role/dto/index';
 
-// import { DeptModule } from '../dept/dept.service';
 import { HrDeptService } from 'src/module/share/hrdept/hrdept.service';
 import { HrDeptEntity } from '../hrdept/entities/hrdept.entity';
 import { ConfigService } from 'src/module/system/config/config.service';
@@ -76,11 +74,10 @@ export class ResUserService {
    * @returns
    */
   async create(createUserDto: CreateResUserDto, user: any) {
-    console.log('用户列表新建：', user.userId, createUserDto);
     const createDate = GetNowDate();
     if (createUserDto.password) {
       // createUserDto.password = await this.pwdContext.hash(createUserDto.password); //10.29 update
-      createUserDto.password = '$pbkdf2-sha512$600000$o1pCwx.Xy96z8UYk/zB9Ig$Jp0rPFPXjN1/9.glni1RD1dLXtDdp/lCvWyW03Fw6vjAuPAvhfNojIWBFCpLICycDWzNdhVp3QrrHE6J4slzfg'
+      createUserDto.password = await this.pwdContext.hashPassword(createUserDto.password);
     }
     // 如果用户/登录名已存在
     const iscz = await this.userRepo.find({
@@ -89,7 +86,6 @@ export class ResUserService {
       },
     });
     if (iscz) {
-      console.log(iscz);
       ResultData.fail(500, '用户已存在,请重新命名');
     }
     const newUser = new ResUserEntity();
@@ -97,7 +93,6 @@ export class ResUserService {
     newUser.login = createUserDto.login;
     newUser.notificationType = 'email';
     // const res = await this.userRepo.save({ ...newUser, createDate, createUid: user.id, companyId: createUserDto.companyId, partnerId: 1 });
-    // 10.31 取消代码设置create_date 检查能否自动生成
     const res = await this.userRepo.save({ ...newUser, createDate, createUid: user.userId, companyId: createUserDto.companyId, partnerId: 1 });
 
     // 还要处理一下有员工和无员工的问题
@@ -289,8 +284,6 @@ export class ResUserService {
       .getOne();
 
     const roleIds = await this.getRoleIds([userId]);
-    console.log('用户获取角色ID：', roleIds);
-
     const allRoles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
 
     // 筛选出roleid指向的role对象存入data.roles
@@ -298,7 +291,6 @@ export class ResUserService {
     let companys = null;
     const cu = await this.userWithcompanyEntityRep.createQueryBuilder('cu').where('cu.userId = :uid', { uid: userId }).getMany();
     const cIds = cu.map((item) => item.cid);
-    console.log(cIds);
     // 10.30 update
     if (cu && cIds.length > 0) {
       const cIds = cu.map((item) => item.cid);
@@ -312,7 +304,6 @@ export class ResUserService {
       const com = await this.userWithcompanyEntityRep.save(newRelation);
       companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id = :cid', { cid: com.cid }).getOne();
     }
-    // companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id = :uid', { uid: userId }).getOne();
     // 这里的roles是与data同级的role id,data内部还有个子级rolrs，是role详情
     return ResultData.ok({
       data,
@@ -323,41 +314,21 @@ export class ResUserService {
   }
 
   /**
-   * 用户角色+岗位信息 切换odoo用户后没有岗位 待添加or修改功能
+   * 系统角色信息 切换odoo用户后没有岗位 待添加or修改功能
    * @returns
    */
   async findRoleAll() {
-    // const roles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
-    // return ResultData.ok({
-    //   roles,
-    // });
-    try {
-      const roles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
-      // const res = await this.sysRoleEntityRep.find({
-      //   where: {
-      //     delFlag: '0',
-      //   },
-      // });
-      const tree = ListToTree(
-        roles,
-        (m) => m.id,
-        (m) => m.name,
-      );
-      return ResultData.ok(tree);
-    } catch (error) {
-      console.log(error);
-      ResultData.fail(500, error);
-    }
+    const roles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
+    return ResultData.ok({
+      roles,
+    });
   }
 
-  /**10.31进度
-   * 更新用户
-   * 涉及到用户和employee的信息，需要先分离数据
+  /**更新用户
    * @param updateUserDto
    * @returns
    */
   async update(updateUserDto: UpdateResUserDto, userId: number, roles: number[]) {
-    console.log('修改用户：', updateUserDto);
     //不具有管理员权限的用户无权限 好像已经在controller层添加权限设定了
     const superadmin = 1;
     if (!roles.includes(superadmin)) {
@@ -378,7 +349,6 @@ export class ResUserService {
         },
         select: ['roleId'],
       });
-      console.log('nest角色信息：', hasRoletId);
       if (hasRoletId) {
         await this.sysUserWithRoleEntityRep.delete({
           userId: updateUserDto.id,
@@ -387,7 +357,6 @@ export class ResUserService {
       // 再创建角色绑定
       const roleEntity = this.sysUserWithRoleEntityRep.createQueryBuilder('roleEntity');
       const roleValues = updateUserDto.roles.map((roleId) => {
-        console.log('update遍历选定角色：', roleId);
         return {
           userId: updateUserDto.id,
           roleId: roleId,
@@ -396,21 +365,33 @@ export class ResUserService {
       roleEntity.insert().values(roleValues).execute();
     }
 
+    // 处理前端传过来的数据 对一些不必要的字段进行删除
     // delete updateUserDto.password;
-    // delete (updateUserDto as any).department;
-    delete (updateUserDto as any).departmentId;
+    // delete (updateUserDto as any).departmentId;
     delete (updateUserDto as any).roles;
-    // delete (updateUserDto as any).roleIds;
-    // delete (updateUserDto as any).postIds;
-    delete (updateUserDto as any).id;
+    // delete (updateUserDto as any).id;
     delete (updateUserDto as any).login;
-    console.log('处理updateDto数据：', updateUserDto);
-
     //更新用户信息
-    // const writeDate = GetNowDate();
-    const data = await this.employeeEntityRep.update({ id: updateUserDto.id }, updateUserDto);
-    // const data = await this.userRepo.save({ ...updateUserDto, writeDate, writeUid: userId });
-
+    console.log('updateUserDto=', updateUserDto);
+    const data = await this.employeeEntityRep.update(
+      { userId: updateUserDto.id },
+      {
+        departmentId: updateUserDto.departmentId,
+        companyId: updateUserDto.companyId,
+        workPhone: updateUserDto.workPhone,
+        // mobilePhone: updateUserDto.workPhone,
+        workEmail: updateUserDto.workEmail,
+        gender: updateUserDto.gender,
+        employeeType: updateUserDto.employeeType,
+        marital: updateUserDto.marital,
+      },
+    );
+    await this.userRepo.update(
+      { id: updateUserDto.id },
+      {
+        companyId: updateUserDto.companyId,
+      },
+    ); //正确返回内容应为：{ generatedMaps: [], raw: [], affected: 1 }
     return ResultData.ok(data);
   }
 
@@ -418,38 +399,15 @@ export class ResUserService {
    * 登陆
    */
   async login(user: LoginDto, clientInfo: ClientInfoDto) {
-    // 验证码
-    const enable = await this.configService.getConfigValue('sys.account.captchaEnabled');
-    const captchaEnabled: boolean = enable === 'true';
-
-    if (captchaEnabled) {
-      const code = await this.redisService.get(CacheEnum.CAPTCHA_CODE_KEY + user.uuid);
-      if (!code) {
-        return ResultData.fail(500, `验证码已过期`);
-      }
-      if (code !== user.code) {
-        return ResultData.fail(500, `验证码错误`);
-      }
-    }
-
-    // 用户
     const data = await this.userRepo.createQueryBuilder('user').select(['user.id', 'user.password']).where('user.login = :login', { login: user.username }).getOne();
-    console.log('输入密码：', data);
 
     if (!data) {
       return ResultData.fail(500, '系统中不存在该用户，请先注册');
     }
-    // if (!verifyPwd(user.password, salt, data.password)) {
-    //   return ResultData.fail(500, `密码错误,请重新输入`);
-    // }
-    // console.log('login=', await this.pwdContext.verify(user.password, data.password));
     const result = await this.pwdContext.verifyPasslib(user.password, data.password);
     if (!result) {
       return ResultData.fail(500, `密码错误,请重新输入`);
     }
-    // if (!this.pwdContext.verify(user.password, data.password)) {
-    //   return ResultData.fail(500, `密码错误,请重新输入`);
-    // }
 
     const userData = await this.getUserinfo(data.id);
     if (userData.active === false) {
@@ -462,7 +420,6 @@ export class ResUserService {
     const uuid = GenerateUUID();
     const token = this.createToken({ uuid: uuid, userId: userData.id });
     // 绝对不能删，否则会报错undefined "includes",是权限的内容
-    console.log('调用权限获取func=', userData.id);
     const permissions = await this.getUserPermissions(userData.id);
     const roleIds = await this.getRoleIds([userData.id]);
     const metaData = {
@@ -479,13 +436,14 @@ export class ResUserService {
       login: userData.login,
       deptName: userData.employee?.department?.name?.zh_CN || '无',
     };
-    console.log('login metadata=', metaData);
 
     // 缓存登录信息到redis
     await this.redisService.set(`${CacheEnum.LOGIN_TOKEN_KEY}${uuid}`, metaData, LOGIN_TOKEN_EXPIRESIN);
+    const loginuser = user.username;
     return ResultData.ok(
       {
         token,
+        loginuser, //返回登录用户，以便totp获取验证对象
       },
 
       '登录成功',
@@ -513,7 +471,8 @@ export class ResUserService {
     console.log(
       '获取权限=',
       userId,
-      list.forEach((item) => item.menuName),
+      roleIds,
+      // list.forEach((item) => item.menuName),
     );
     return permissions;
   }
@@ -548,27 +507,20 @@ export class ResUserService {
     const data: any = await entity.getOne();
     let companys = null;
 
-    // const roleIds = await this.sysUserWithRoleEntityRep.createQueryBuilder('role').select('role.roleId').where('role.userId = :userId', { userId: userId }).getMany();
     const roleIds = await this.getRoleIds([userId]);
 
     const roles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.roleId IN (:...roleIds)', { roleIds }).andWhere('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
-    // 多公司处理
-    companys = await this.companyEntityRep.createQueryBuilder('company').where('company.id = :userId', { userId: data.companyId }).getOne();
+    // 单公司与多公司处理
+    // companys = await this.companyEntityRep.createQueryBuilder('company').where('company.id = :userId', { userId: data.companyId }).getOne();
     const cu = await this.userWithcompanyEntityRep.createQueryBuilder('cu').where('cu.userId = :uid', { uid: userId }).getMany();
     const cIds = cu.map((item) => item.cid);
-    // 10.30 update
-    if (cu && cIds.length > 0) {
+    if (cu && cIds.length > 1) {
       const cIds = cu.map((item) => item.cid);
       companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id IN (:...cIds)', { cIds }).getMany();
+    } else {
+      companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id = :cIds', { cIds }).getOne();
     }
-    // else if (data.companyId) {
-    //   companys = await this.companyEntityRep.createQueryBuilder('company').where('company.id = :userId', { userId: data.companyId }).getOne();
-    // }
-    //end
 
-    // const cIds = cu.map((item) => item.cid);
-    // const companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id IN (:...cIds)', { cIds }).getMany();
-    // console.log('userinfo 报错测试4=', companys);
     data['roles'] = roles; //添加一个子级属性 这边返回到前端后数据结构为user:{user的属性，employee:{employee的属性，department:{department的属性}},role:{role的属性}}
     data['companys'] = companys;
 
@@ -585,8 +537,7 @@ export class ResUserService {
     const createDate = GetNowDate();
     const saveUser = new ResUserEntity();
     saveUser.login = user.username;
-    saveUser.password = '$pbkdf2-sha512$600000$o1pCwx.Xy96z8UYk/zB9Ig$Jp0rPFPXjN1/9.glni1RD1dLXtDdp/lCvWyW03Fw6vjAuPAvhfNojIWBFCpLICycDWzNdhVp3QrrHE6J4slzfg';
-    // saveUser.password = await this.pwdContext.hash(user.password);
+    saveUser.password = await this.pwdContext.hashPassword(user.password);
     saveUser.companyId = 1;
     saveUser.partnerId = 2;
     saveUser.notificationType = 'email';
@@ -623,10 +574,8 @@ export class ResUserService {
     emp.name = user.username;
     emp.userId = nu.id;
     emp.active = true;
-    // emp.createUid = nu.id;
     await this.employeeEntityRep.save({ ...emp, writeDate, createDate, employeeType: EMPLOYEE_USER_TYPE.EMPLOYEE, createUid: nu.id });
     await this.sysUserWithRoleEntityRep.save({ userId: nu.id, roleId: 2 });
-    // await this.employeeEntityRep.update({ id: e.id }, { resourceId: e.id });
     return ResultData.ok(nu, '注册成功');
   }
 
@@ -667,11 +616,7 @@ export class ResUserService {
       return ResultData.fail(500, '系统用户不能重置密码');
     }
     if (body.password) {
-      // body.password = await bcrypt.hashSync(body.password, bcrypt.genSaltSync(10));
-      // const salt = genSalt();
-      const hashPassword = '$pbkdf2-sha512$600000$o1pCwx.Xy96z8UYk/zB9Ig$Jp0rPFPXjN1/9.glni1RD1dLXtDdp/lCvWyW03Fw6vjAuPAvhfNojIWBFCpLICycDWzNdhVp3QrrHE6J4slzfg';
-      // const hashPassword = await this.pwdContext.hash(body.password);
-      body.password = hashPassword;
+      body.password = await this.pwdContext.hashPassword(body.password);
     }
     await this.userRepo.update(
       {
@@ -711,16 +656,13 @@ export class ResUserService {
         delFlag: '0',
       },
     });
-
-    const user = await this.employeeEntityRep
-      .createQueryBuilder('hr')
-      .leftJoinAndSelect('hr.department', 'dept')
-      .leftJoinAndSelect('hr.user', 'user')
-      .where('hr.userId = :userId', { userId: userId })
-      .andWhere('user.active = :active', { active: true })
-      .andWhere('dept.active = :active', { active: true });
+    const user = await this.userRepo.createQueryBuilder('user').where('user.id = :id', { id: userId }).getOne();
 
     const roleIds = await this.getRoleIds([userId]);
+
+    const roles = await this.sysRoleEntityRep.createQueryBuilder('role').where('role.roleId IN (:...roleIds)', { roleIds }).andWhere('role.delFlag = :delFlag', { delFlag: '0' }).getMany();
+    user['roles'] = roles;
+
     //TODO flag用来给前端表格标记选中状态，后续优化
     user['roles'] = allRoles.filter((item) => {
       if (roleIds.includes(item.roleId)) {
@@ -775,7 +717,7 @@ export class ResUserService {
    * @returns
    */
   async changeStatus(changeStatusDto: ChangeStatusDto) {
-    console.log('进入后端服务changeUserStatus');
+    console.log('进入后端服务changeUserStatus:');
     try {
       const urData = await this.sysUserWithRoleEntityRep.findOne({
         where: {
@@ -787,17 +729,16 @@ export class ResUserService {
         return ResultData.fail(500, '系统管理员不可停用');
       }
 
-      // const res = await this.userRepo.update(
-      //   { id: changeStatusDto.id },
-      //   {
-      //     active: changeStatusDto.active,
-      //   },
-      // );
-      const res = await this.userRepo.createQueryBuilder('user').update(ResUserEntity).set({ active: changeStatusDto.active }).where('user.id = :id', { id: changeStatusDto.id }).execute();
-      console.log('后端changeUserStatus', res);
+      const res = await this.userRepo.update(
+        { id: changeStatusDto.id },
+        {
+          active: changeStatusDto.active,
+        },
+      );
+      // const res = await this.userRepo.createQueryBuilder('user').update(ResUserEntity).set({ active: changeStatusDto.active }).where('user.id = :id', { id: changeStatusDto.id }).execute();
+      console.log('后端changeUserStatus update user=', res);
       return ResultData.ok(res);
     } catch (error) {
-      console.log('changestatus error=', error);
       return ResultData.fail(500, error);
     }
   }
@@ -973,11 +914,16 @@ export class ResUserService {
    * @returns
    */
   async updateProfile(user: any, updateProfileDto: UpdateProfileDto) {
-    await this.userRepo.update({ id: user.user.id }, updateProfileDto);
+    // await this.userRepo.update({ id: user.user.id }, { login: updateProfileDto.login });
+    // delete updateProfileDto.login;
+    await this.employeeEntityRep.update(
+      { id: user.user.id },
+      { name: updateProfileDto.name, workEmail: updateProfileDto.workEmail, workPhone: updateProfileDto.workPhone, gender: updateProfileDto.gender },
+    );
     const userData = await this.redisService.get(`${CacheEnum.LOGIN_TOKEN_KEY}${user.token}`);
-    userData.user.nickName = updateProfileDto.login;
+    userData.user.name = updateProfileDto.name;
     userData.user.email = updateProfileDto.workEmail;
-    userData.user.phonenumber = updateProfileDto.mobilePhone;
+    userData.user.phonenumber = updateProfileDto.workPhone;
     userData.user.sex = updateProfileDto.gender;
     await this.redisService.set(`${CacheEnum.LOGIN_TOKEN_KEY}${user.token}`, userData);
     return ResultData.ok();
@@ -990,24 +936,17 @@ export class ResUserService {
    * @returns
    */
   async updatePwd(user: any, updatePwdDto: UpdatePwdDto) {
-    console.log('到达后端逻辑 个人中心修改密码=', user);
     if (updatePwdDto.oldPassword === updatePwdDto.newPassword) {
       return ResultData.fail(500, '新密码不能与旧密码相同');
     }
-    // if (updatePwdDto.confirmnewPassword !== updatePwdDto.newPassword) {
-    //   return ResultData.fail(500, '输入密码不相同,请重新输入');
-    // }
-    // if (bcrypt.compareSync(user.user.password, updatePwdDto.oldPassword)) {
-    // 校验旧密码是否正确
-    if (this.pwdContext.verifyPasslib(updatePwdDto.oldPassword, user.user.password)) {
+    const valid = await this.pwdContext.verifyPasslib(updatePwdDto.oldPassword, user.user.password);
+    if (valid) {
+      const hashPassword = await this.pwdContext.hashPassword(updatePwdDto.newPassword);
+      await this.userRepo.update({ id: user.userId }, { password: hashPassword });
+      return ResultData.ok();
+    } else {
       return ResultData.fail(500, '修改密码失败，旧密码错误');
     }
-
-    // const password = await bcrypt.hashSync(updatePwdDto.newPassword, bcrypt.genSaltSync(10));
-    const hashPassword = '$pbkdf2-sha512$600000$o1pCwx.Xy96z8UYk/zB9Ig$Jp0rPFPXjN1/9.glni1RD1dLXtDdp/lCvWyW03Fw6vjAuPAvhfNojIWBFCpLICycDWzNdhVp3QrrHE6J4slzfg';
-    // const hashPassword = await this.pwdContext.hash(updatePwdDto.newPassword); //10.29 update
-    await this.userRepo.update({ id: user.user.userId }, { password: hashPassword });
-    return ResultData.ok();
   }
 
   /**

@@ -74,6 +74,9 @@ export class HrEmpEntity extends SharedEntity {
   @Column({ type: 'varchar', name: 'schoolgrade', comment: '学历' })
   public schoolgrade: string;
 
+  @Column({ type: 'timestamp', name: 'birthday', comment: '出生日期' })
+  public birthday: Date;
+
   @OneToOne(() => ResUserEntity, (user) => user.employee)
   public user: ResUserEntity;
 

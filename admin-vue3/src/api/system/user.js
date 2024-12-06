@@ -20,7 +20,6 @@ export function getUser(userId) {
 
 // 新增用户  用户新增操作时调用
 export function addUser(data) {
-  console.log('add api=', data);
   return request({
     url: '/system/user',
     method: 'post',
@@ -41,6 +40,22 @@ export function updateUser(data) {
 export function delUser(userId) {
   return request({
     url: '/system/user/' + userId,
+    method: 'delete'
+  })
+}
+
+// 启用用户TOTP
+export function createTotp(userId) {
+  return request({
+    url: '/auth/totp/enable/'+ userId,
+    method: 'get'
+  })
+}
+
+// 关闭用户TOTP
+export function closeTotp(userId) {
+  return request({
+    url: '/auth/totp/disable/'+ userId,
     method: 'delete'
   })
 }
@@ -81,7 +96,6 @@ export function getUserProfile() {
 
 // 修改用户个人信息
 export function updateUserProfile(data) {
-  console.log('api update userinfo=', data);
   return request({
     url: '/system/user/profile',
     method: 'put',
@@ -95,11 +109,10 @@ export function updateUserPwd(oldPassword, newPassword) {
     oldPassword,
     newPassword
   }
-  console.log('->api 个人中心修改密码获取data=', data);
   return request({
     url: '/system/user/profile/updatePwd',
     method: 'put',
-    params: data
+    data: data
   })
 }
 
@@ -146,9 +159,9 @@ export function compTreeSelect() {
 }
 
 // // 查询角色结构
-// export function roleTreeSelect() {
-//   return request({
-//     url: '/system/user/roleTree',
-//     method: 'get'
-//   })
-// }
+export function roleTreeSelect() {
+  return request({
+    url: '/system/user/roleTree',
+    method: 'get'
+  })
+}

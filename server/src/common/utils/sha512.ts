@@ -1,6 +1,5 @@
 import { pbkdf2Sync, randomBytes } from 'crypto';
 import nodePasslib from 'node-passlib';
-import speakeasy from 'speakeasy';
 
 export class CryptoContext {
   private iterations: number;
@@ -25,7 +24,6 @@ export class CryptoContext {
     const salt = randomBytes(this.saltBytes);
     const hash = pbkdf2Sync(password, salt, this.iterations, this.hashBytes, this.digest).toString('base64');
     let format = ['$pbkdf2-sha512', this.iterations, salt.toString('base64'), hash].join('$');
-    console.log(format);
     format = format.replace(/\+/g, '.').replace(/\=/g, '');
     return format;
   }
@@ -43,10 +41,4 @@ export class CryptoContext {
     const hash = pbkdf2Sync(password, Buffer.from(salt, 'base64'), this.iterations, this.hashBytes, this.digest).toString('base64');
     return hash === originalHash;
   }
-}
-
-// TOTP验证
-export function TotpVilidate() {
-  const secret = speakeasy.generateSecret({ length: 20 }).base32;
-  console.log('TOTPHHH=', secret);
 }

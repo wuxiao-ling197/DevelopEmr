@@ -321,7 +321,7 @@ export class UpdateProfileDto {
   @ApiProperty({ required: true })
   @IsOptional()
   @IsString()
-  login: string;
+  name: string;
 
   @ApiProperty({ required: true })
   @IsOptional()
@@ -331,7 +331,7 @@ export class UpdateProfileDto {
   @ApiProperty({ required: true })
   @IsOptional()
   @IsString()
-  mobilePhone: string;
+  workPhone: string;
 
   @ApiProperty({ required: true })
   @IsOptional()
@@ -342,12 +342,14 @@ export class UpdateProfileDto {
 export class UpdatePwdDto {
   @ApiProperty({ required: true })
   @IsString()
-  @Length(5, 50)
+  @IsOptional()
+  // @Length(5, 50)
   oldPassword: string;
 
   @ApiProperty({ required: true })
   @IsString()
-  @Length(5, 50)
+  @IsOptional()
+  // @Length(5, 50)
   newPassword: string;
 
   // @ApiProperty({ required: true })

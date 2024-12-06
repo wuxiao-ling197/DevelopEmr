@@ -12,11 +12,12 @@ import { SysRoleEntity } from 'src/module/system/role/entities/role.entity';
 import { CompUserEntity } from './entities/comuserrel';
 import { ResCompEntity } from './entities/rescompany.entity';
 import { ResoureceEntity } from './entities/resource.entity';
+import { AuthTotpEntity } from './entities/auth_totp';
 
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forFeature([ResUserEntity, HrEmpEntity, HrDeptEntity, CompUserEntity, ResCompEntity, ResoureceEntity], 'shared'),
+    TypeOrmModule.forFeature([ResUserEntity, HrEmpEntity, HrDeptEntity, CompUserEntity, ResCompEntity, ResoureceEntity, AuthTotpEntity], 'shared'),
     TypeOrmModule.forFeature([SysUserWithRoleEntity, SysRoleEntity]),
     JwtModule.registerAsync({
       imports: [ConfigModule],

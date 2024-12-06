@@ -10,7 +10,7 @@ import { PermissionGuard } from 'src/common/guards/permission.guard';
 import { RolesGuard } from './common/guards/roles.guard';
 
 import { AuthModule } from './module/system/auth/auth.module';
-import { UserModule } from './module/system/user/user.module';
+// import { UserModule } from './module/system/user/user.module';
 import { ToolModule } from './module/system/tool/tool.module';
 // import { DeptModule } from './module/system/dept/dept.module';
 import { DictModule } from './module/system/dict/dict.module';
@@ -34,6 +34,7 @@ import { MetadataModule } from './module/emrManage/metadata/metadata.module';
 import { MedicalRecordModule } from './module/emrManage/medicalRecord/medicalRecord.module';
 import { PatientModule } from './module/emrManage/patient/patient.module';
 import { TemplateModule } from './module/emrManage/template/template.module';
+import { MfaModule } from './module/mfa/mfa.module';
 
 @Global()
 @Module({
@@ -112,6 +113,7 @@ import { TemplateModule } from './module/emrManage/template/template.module';
     LoginlogModule,
     OperlogModule,
     AxiosModule,
+    MfaModule, //自定义totp路由 11.12 update
     OnlineModule,
     ServerModule,
     UploadModule,

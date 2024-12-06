@@ -41,7 +41,6 @@ export class HrDeptService {
     entity.where('entity.available = :available', { available: true });
 
     if (query.name) {
-      console.log('dept name=', query.name);
       entity.andWhere('entity.name LIKE :name', { name: `%${query.name}%` });
     }
     if (query.available) {
@@ -87,7 +86,7 @@ export class HrDeptService {
       }
       // 执行查询并获取结果
       const list = await entity.getMany();
-      console.log('部门权限=', list);
+      // console.log('部门权限=', list);
 
       // 将查询结果映射为部门ID数组后返回
       return list.map((item) => item.id);
@@ -166,43 +165,18 @@ export class HrDeptService {
   async deptTree() {
     // .select(['comp.id', 'comp.name', 'comp.parentId', 'dept.id', 'dept.name.zh_CN', 'dept.parentId'])
     const comp = await this.companyEntityRep.createQueryBuilder('comp').leftJoinAndMapMany('comp.departments', HrDeptEntity, 'dept', 'comp.id = dept.companyId').getMany();
-    // console.log('deptTree=', comp);
     const compIds = comp.map((c) => c.id);
-
-    // const kData = {}; // 以id做key的对象 暂时储存数据
-    // const lData = []; // 最终的数据 arr
-
-    // comp.forEach((m) => {
-    //   m = {
-    //     id: m.id,
-    //     label: m.name,
-    //     parentId: +m.parentId,
-    //     // departments: +m.departments,
-    //   };
-    //   kData[m.id] = {
-    //     id: m.id,
-    //     label: m.name,
-    //     parentId: m.parentId,
-    //   };
-    //   if (m.parentId === 0) {
-    //     lData.push(kData[m.id]);
-    //   } else {
-    //     kData[m.parentId] = kData[m.parentId] || {};
-    //     kData[m.parentId].children = kData[m.parentId].children || [];
-    //     kData[m.parentId].children.push(kData[m.id]);
-    //   }
-    // });
-
     const res = await this.hrDeptEntityRep.find({
       where: {
-        available: true,
+        active: true,
         companyId: In(compIds),
       },
     });
+    // console.log('dept res=', res);
     const tree = ListToTree(
       res,
       (m) => m.id,
-      (m) => m.name.zh_CN,
+      (m) => m.name.en_US, // (m) => m.name.zh_CN, 数据库内容变了
     );
     return tree;
   }

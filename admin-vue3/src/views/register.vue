@@ -151,7 +151,11 @@ function handleRegister() {
       }).catch(() => {
         // 注册失败
         if (verified) {
-          getCode();
+          // getCode();
+          ElMessageBox.alert("<font color='red'>注册失败，请再试一次</font>", "系统提示", {
+          dangerouslyUseHTMLString: true,
+          type: "error",
+        })
         }
       });
     }
