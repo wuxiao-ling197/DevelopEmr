@@ -45,8 +45,10 @@ db:
 
   shared:
     host: '192.168.0.2'
-    username: 'odoo17'
-    password: 'odoo17'
+    # username: 'odoo17'
+    # password: 'odoo17'
+    username: 'odoo'
+    password: 'odoo'
     database: 'odoo_share'
     port: 5432
     ssldisable: false

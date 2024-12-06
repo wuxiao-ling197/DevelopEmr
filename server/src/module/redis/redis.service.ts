@@ -1,6 +1,7 @@
 import { InjectRedis } from '@liaoliaots/nestjs-redis';
 import { Injectable } from '@nestjs/common';
 import Redis from 'ioredis';
+// const Redis = require('ioredis');
 
 @Injectable()
 export class RedisService {
@@ -347,6 +348,35 @@ export class RedisService {
   async lPoplPush(sourceKey: string, destinationKey: string, timeout: number): Promise<string> {
     if (!sourceKey || !destinationKey) return null;
     return await this.client.brpoplpush(sourceKey, destinationKey, timeout);
+  }
+
+  /**
+   * 发号器，生成job_id
+   */
+  async generateID(keyPrefix): Promise<number> {   
+    // 假设这些常量在您的Java代码中有定义
+    const BEGIN_TIMESTAMP = 1609459200; // 示例起始时间戳（2021-01-01T00:00:00Z的UTC秒数）
+    const COUNT_BITS = 12; // 假设序列号占12位
+    // 1. 生成时间戳
+    const now = Math.floor(Date.now() / 1000); // 当前时间的UTC秒数
+    const timestamp = now - BEGIN_TIMESTAMP;
+    // 2. 生成序列号
+    // 获取日期，精确到天
+    const date = new Date();
+    const formattedDate = date.toISOString().split('T')[0].replace(/-/g, ':'); // 格式化为yyyy:MM:dd 
+    // 使用Redis的自增操作来获取序列号
+    try {
+      const count = await this.client.incr(`icr:${keyPrefix}:${formattedDate}`);
+      // 注意：这里还需要定义COUNT_BITS和如何将其与timestamp和count组合成ID
+      const id = (timestamp << COUNT_BITS) | count;
+      // 示例代码，可能需要根据您的需求进行调整
+      console.log('id::',id);
+      console.log('count::',count);
+      return id;
+    } catch (err) {
+      console.log('Error generating ID:', err);
+      throw err;
+    }
   }
 
   /**

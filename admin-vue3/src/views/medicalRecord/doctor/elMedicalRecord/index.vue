@@ -33,6 +33,7 @@ export default {
       resource: '',
       desc: '',
     });
+    
     const formLabelWidth = ref('40px');
     // 发送请求，初始化表单数据
     const initFormData = async()=>{

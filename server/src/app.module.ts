@@ -30,6 +30,10 @@ import { ServerModule } from './module/monitor/server/server.module';
 import { UploadModule } from './module/upload/upload.module';
 import { HrDeptModule } from './module/share/hrdept/hrdept.module';
 import { ResUserModule } from './module/share/resuser/resuser.module';
+import { MetadataModule } from './module/emrManage/metadata/metadata.module';
+import { MedicalRecordModule } from './module/emrManage/medicalRecord/medicalRecord.module';
+import { PatientModule } from './module/emrManage/patient/patient.module';
+import { TemplateModule } from './module/emrManage/template/template.module';
 
 @Global()
 @Module({
@@ -111,20 +115,25 @@ import { ResUserModule } from './module/share/resuser/resuser.module';
     OnlineModule,
     ServerModule,
     UploadModule,
+    MetadataModule,
+    MedicalRecordModule,
+    PatientModule,
+    TemplateModule
   ],
   providers: [
+    // JwtAuthGuard,// 在postman初步测试不方便携带登录信息token的时候取消下面的权限，用这个
     {
       provide: APP_GUARD,
       useClass: JwtAuthGuard,
     },
-    {
-      provide: APP_GUARD,
-      useClass: RolesGuard,
-    },
-    {
-      provide: APP_GUARD,
-      useClass: PermissionGuard,
-    },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: RolesGuard,
+    // },
+    // {
+    //   provide: APP_GUARD,
+    //   useClass: PermissionGuard,
+    // },
   ],
 })
-export class AppModule {}
+export class AppModule { }

@@ -6,10 +6,11 @@ import { HrEmpEntity } from '../share/resuser/entities/hremp.entity';
 import { ResUserEntity } from '../share/resuser/entities/resuser.entity';
 import { HrDeptEntity } from '../share/hrdept/entities/hrdept.entity';
 import { CompUserEntity } from '../share/resuser/entities/comuserrel';
+import { MetadataEntity } from '../emrManage/metadata/entities/emr-metadata.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([HrEmpEntity, ResUserEntity, HrDeptEntity, CompUserEntity], 'shared'), // Ensure the entity is registered here
+    TypeOrmModule.forFeature([HrEmpEntity, ResUserEntity, HrDeptEntity, CompUserEntity ], 'shared'), // Ensure the entity is registered here
   ],
   controllers: [MainController],
   providers: [MainService],

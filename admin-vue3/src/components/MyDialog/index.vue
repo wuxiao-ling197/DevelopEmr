@@ -1,6 +1,6 @@
 <template>
     <div class="dialog-container">
-        <el-dialog v-model="dialogVisible" title="用户信息" width="500">
+        <el-dialog v-model="dialogVisible" :title="title" width="500">
             <el-form :model="form">
             <el-form-item label="Promotion name" :label-width="formLabelWidth">
                 <el-input v-model="form.name" autocomplete="off" />
@@ -29,6 +29,10 @@ import { ref } from 'vue';
 export default {
     name:"MyDialog",
     props:{
+        title:{
+            type:String,
+            default:'用户信息'
+        },
         form:{
             type:Object,
             default:()=>({

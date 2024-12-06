@@ -30,6 +30,7 @@ export class MainController {
     private readonly deptEntityRep: Repository<HrDeptEntity>,
     @InjectRepository(CompUserEntity, 'shared')
     private readonly userWithcompanyEntityRep: Repository<CompUserEntity>,
+
     private readonly mainService: MainService,
     private readonly redisService: RedisService,
     private readonly configService: ConfigService,
@@ -198,6 +199,7 @@ export class MainController {
 
     // console.log('odoo data=', employee);
     // const employee = await this.employeeEntityRep.createQueryBuilder('hr').leftJoinAndSelect('hr.user', 'user').select('hr.userId').where('hr.userId  = :userId', { userId: 2 }).getMany();
+
 
     const userIds = [2, 1907, 1908, 1909];
     const employee = await this.userRepo
