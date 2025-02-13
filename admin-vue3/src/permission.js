@@ -22,9 +22,9 @@ router.beforeEach((to, from, next) => {
     /* has token isValid标识totp验证结果*/
     if (to.path === '/login') {
       next({ path: '/' })
-    } 
+    }
     else {
-      if (useUserStore().roles.length === 0 ) {
+      if (useUserStore().roles.length === 0) {
         isRelogin.show = true
         // 判断当前用户是否已拉取完user_info信息
         useUserStore().getInfo().then(() => {

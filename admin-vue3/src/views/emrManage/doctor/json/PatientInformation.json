@@ -1,0 +1,214 @@
+{
+  "widgetList": [
+    {
+      "type": "select",
+      "icon": "select-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "productType",
+        "label": "产品类型",
+        "labelAlign": "",
+        "defaultValue": "",
+        "placeholder": "",
+        "columnWidth": "200px",
+        "size": "",
+        "labelWidth": null,
+        "labelHidden": false,
+        "disabled": false,
+        "hidden": false,
+        "clearable": true,
+        "filterable": false,
+        "allowCreate": false,
+        "remote": false,
+        "automaticDropdown": false,
+        "multiple": false,
+        "multipleLimit": 0,
+        "optionItems": [],
+        "required": false,
+        "validation": "",
+        "validationHint": "",
+        "customClass": "",
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "onCreated": "",
+        "onMounted": "",
+        "onRemoteQuery": "",
+        "onChange": "",
+        "onFocus": "",
+        "onBlur": "",
+        "onValidate": ""
+      },
+      "id": "select87612"
+    },
+    {
+      "key": 56998,
+      "type": "radio",
+      "icon": "radio-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "gender",
+        "label": "性别",
+        "labelAlign": "",
+        "defaultValue": null,
+        "columnWidth": "200px",
+        "size": "",
+        "displayStyle": "inline",
+        "buttonStyle": false,
+        "border": false,
+        "labelWidth": null,
+        "labelHidden": false,
+        "disabled": false,
+        "hidden": false,
+        "optionItems": [
+          {
+            "label": "radio 1",
+            "value": 1
+          },
+          {
+            "label": "radio 2",
+            "value": 2
+          },
+          {
+            "label": "radio 3",
+            "value": 3
+          }
+        ],
+        "required": false,
+        "requiredHint": "",
+        "validation": "",
+        "validationHint": "",
+        "customClass": [],
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "onCreated": "",
+        "onMounted": "",
+        "onChange": "",
+        "onValidate": ""
+      },
+      "id": "radio60207"
+    },
+    {
+      "key": 34029,
+      "type": "select",
+      "icon": "select-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "TP0102",
+        "label": "身份证件类别",
+        "labelAlign": "",
+        "defaultValue": "",
+        "placeholder": "",
+        "columnWidth": "200px",
+        "size": "",
+        "labelWidth": null,
+        "labelHidden": false,
+        "disabled": false,
+        "hidden": false,
+        "clearable": true,
+        "filterable": false,
+        "allowCreate": false,
+        "remote": false,
+        "automaticDropdown": false,
+        "multiple": false,
+        "multipleLimit": 0,
+        "optionItems": [
+          {
+            "label": "select 1",
+            "value": 1
+          },
+          {
+            "label": "select 2",
+            "value": 2
+          },
+          {
+            "label": "select 3",
+            "value": 3
+          }
+        ],
+        "required": false,
+        "requiredHint": "",
+        "validation": "",
+        "validationHint": "",
+        "customClass": "",
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "onCreated": "",
+        "onMounted": "",
+        "onRemoteQuery": "",
+        "onChange": "",
+        "onFocus": "",
+        "onBlur": "",
+        "onValidate": ""
+      },
+      "id": "select57247"
+    },
+    {
+      "key": 56998,
+      "type": "radio",
+      "icon": "radio-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "paymentType",
+        "label": "支付方式",
+        "labelAlign": "",
+        "defaultValue": null,
+        "columnWidth": "200px",
+        "size": "",
+        "displayStyle": "inline",
+        "buttonStyle": false,
+        "border": false,
+        "labelWidth": null,
+        "labelHidden": false,
+        "disabled": false,
+        "hidden": false,
+        "optionItems": [
+          {
+            "label": "radio 1",
+            "value": 1
+          },
+          {
+            "label": "radio 2",
+            "value": 2
+          },
+          {
+            "label": "radio 3",
+            "value": 3
+          }
+        ],
+        "required": false,
+        "requiredHint": "",
+        "validation": "",
+        "validationHint": "",
+        "customClass": "",
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "onCreated": "",
+        "onMounted": "",
+        "onChange": "",
+        "onValidate": ""
+      },
+      "id": "radio28311"
+    }
+  ],
+  "formConfig": {
+    "modelName": "formData",
+    "refName": "vForm",
+    "rulesName": "rules",
+    "labelWidth": 80,
+    "labelPosition": "left",
+    "size": "",
+    "labelAlign": "label-left-align",
+    "cssCode": "",
+    "customClass": "",
+    "functions": "",
+    "layoutType": "PC",
+    "jsonVersion": 3,
+    "onFormCreated": "",
+    "onFormMounted": "  let productTypeR = this.getWidgetRef('productType')\n  \n  productTypeR.loadOptions([\n    {label: '啤酒', value: '1'},\n    {label: '白酒', value: '2'},\n    {label: '红酒', value: '3'}\n  ])",
+    "onFormDataChange": ""
+  }
+}

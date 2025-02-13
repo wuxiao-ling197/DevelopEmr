@@ -1,0 +1,1005 @@
+{
+    "widgetList": [
+        {
+            "key": 38846,
+            "type": "tab",
+            "category": "container",
+            "icon": "tab",
+            "displayType": "border-card",
+            "tabs": [
+                {
+                    "type": "tab-pane",
+                    "category": "container",
+                    "icon": "tab-pane",
+                    "internal": true,
+                    "widgetList": [
+                        {
+                            "key": 96109,
+                            "type": "table",
+                            "category": "container",
+                            "icon": "table",
+                            "rows": [
+                                {
+                                    "cols": [
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 43220,
+                                                    "type": "select",
+                                                    "icon": "select-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "审批人",
+                                                        "label": "审批人",
+                                                        "labelAlign": "",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "filterable": false,
+                                                        "allowCreate": false,
+                                                        "remote": false,
+                                                        "automaticDropdown": false,
+                                                        "multiple": false,
+                                                        "multipleLimit": 0,
+                                                        "optionItems": [
+                                                            {
+                                                                "label": "select 1",
+                                                                "value": 1
+                                                            },
+                                                            {
+                                                                "label": "select 2",
+                                                                "value": 2
+                                                            },
+                                                            {
+                                                                "label": "select 3",
+                                                                "value": 3
+                                                            }
+                                                        ],
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onRemoteQuery": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": ""
+                                                    },
+                                                    "id": "select47285"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-49979",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-49979"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "申请人",
+                                                        "label": "申请人",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input72614"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-31988",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-31988"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "工号",
+                                                        "label": "工号",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input75979"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-52893",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-52893"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "职务",
+                                                        "label": "职务",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input82669"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-94597",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-94597"
+                                        }
+                                    ],
+                                    "id": "table-row-107385",
+                                    "merged": false
+                                },
+                                {
+                                    "cols": [
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "部门",
+                                                        "label": "部门",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": "",
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input15518"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-77848",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-77848"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "房间号",
+                                                        "label": "房间号",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": "",
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input37619"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-120073",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-120073"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "分机号",
+                                                        "label": "分机号",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": "",
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input88827"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-31207",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-31207"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "所属小组",
+                                                        "label": "所属小组",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input47641"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-108913",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-108913"
+                                        }
+                                    ],
+                                    "id": "table-row-82742",
+                                    "merged": false
+                                },
+                                {
+                                    "cols": [
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 75492,
+                                                    "type": "input",
+                                                    "icon": "text-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "input76796",
+                                                        "label": "申请时间",
+                                                        "labelAlign": "",
+                                                        "type": "text",
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "clearable": true,
+                                                        "showPassword": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "prefixIcon": "",
+                                                        "suffixIcon": "",
+                                                        "appendButton": false,
+                                                        "appendButtonDisabled": false,
+                                                        "buttonIcon": "custom-search",
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": "",
+                                                        "onAppendButtonClick": ""
+                                                    },
+                                                    "id": "input76796"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-65840",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-65840"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-87928",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-87928"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-37534",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-37534"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-71769",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 1,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-71769"
+                                        }
+                                    ],
+                                    "id": "table-row-51987",
+                                    "merged": false
+                                },
+                                {
+                                    "cols": [
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 89183,
+                                                    "type": "textarea",
+                                                    "icon": "textarea-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "详细描述",
+                                                        "label": "详细描述",
+                                                        "labelAlign": "",
+                                                        "rows": 3,
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": ""
+                                                    },
+                                                    "id": "textarea82858"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-64300",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-64300"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-31255",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-31255"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-13527",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-13527"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-65853",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-65853"
+                                        }
+                                    ],
+                                    "id": "table-row-51688",
+                                    "merged": false
+                                },
+                                {
+                                    "cols": [
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [
+                                                {
+                                                    "key": 89183,
+                                                    "type": "textarea",
+                                                    "icon": "textarea-field",
+                                                    "formItemFlag": true,
+                                                    "options": {
+                                                        "name": "审批结果",
+                                                        "label": "审批结果",
+                                                        "labelAlign": "",
+                                                        "rows": 3,
+                                                        "defaultValue": "",
+                                                        "placeholder": "",
+                                                        "columnWidth": "200px",
+                                                        "size": "",
+                                                        "labelWidth": null,
+                                                        "labelHidden": false,
+                                                        "readonly": false,
+                                                        "disabled": false,
+                                                        "hidden": false,
+                                                        "required": false,
+                                                        "requiredHint": "",
+                                                        "validation": "",
+                                                        "validationHint": "",
+                                                        "customClass": [],
+                                                        "labelIconClass": null,
+                                                        "labelIconPosition": "rear",
+                                                        "labelTooltip": null,
+                                                        "minLength": null,
+                                                        "maxLength": null,
+                                                        "showWordLimit": false,
+                                                        "onCreated": "",
+                                                        "onMounted": "",
+                                                        "onInput": "",
+                                                        "onChange": "",
+                                                        "onFocus": "",
+                                                        "onBlur": "",
+                                                        "onValidate": ""
+                                                    },
+                                                    "id": "textarea39432"
+                                                }
+                                            ],
+                                            "merged": false,
+                                            "options": {
+                                                "name": "table-cell-101811",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": []
+                                            },
+                                            "id": "table-cell-101811"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-61517",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-61517"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-70601",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-70601"
+                                        },
+                                        {
+                                            "type": "table-cell",
+                                            "category": "container",
+                                            "icon": "table-cell",
+                                            "internal": true,
+                                            "widgetList": [],
+                                            "merged": true,
+                                            "options": {
+                                                "name": "table-cell-44056",
+                                                "cellWidth": "",
+                                                "cellHeight": "",
+                                                "colspan": 4,
+                                                "rowspan": 1,
+                                                "wordBreak": false,
+                                                "customClass": ""
+                                            },
+                                            "id": "table-cell-44056"
+                                        }
+                                    ],
+                                    "id": "table-row-83104",
+                                    "merged": false
+                                }
+                            ],
+                            "options": {
+                                "name": "table30903",
+                                "hidden": false,
+                                "customClass": []
+                            },
+                            "id": "table30903"
+                        }
+                    ],
+                    "options": {
+                        "name": "tab-pane-19622",
+                        "label": "审批流程",
+                        "hidden": false,
+                        "active": true,
+                        "disabled": false,
+                        "customClass": ""
+                    },
+                    "id": "tab-pane-19622"
+                },
+                {
+                    "type": "tab-pane",
+                    "category": "container",
+                    "icon": "tab-pane",
+                    "internal": true,
+                    "widgetList": [],
+                    "options": {
+                        "name": "tab-pane-50332",
+                        "label": "tab 2",
+                        "hidden": false,
+                        "active": false,
+                        "disabled": false,
+                        "customClass": ""
+                    },
+                    "id": "tab-pane-50332"
+                }
+            ],
+            "options": {
+                "name": "tab23846",
+                "hidden": false,
+                "customClass": []
+            },
+            "id": "tab23846"
+        }
+    ],
+    "formConfig": {
+        "modelName": "formData",
+        "refName": "vForm",
+        "rulesName": "rules",
+        "labelWidth": 80,
+        "labelPosition": "left",
+        "size": "",
+        "labelAlign": "label-left-align",
+        "cssCode": "",
+        "customClass": [],
+        "functions": "",
+        "layoutType": "PC",
+        "jsonVersion": 3,
+        "onFormCreated": "",
+        "onFormMounted": "const checkPerson = this.getWidgetRef('审批人')\ncheckPerson.loadOptions([\n  {label: '主任1name', value: '主任1id'},\n  {label: '主任1name', value: '主任2id'},\n  {label: '主任3name', value: '主任3id'}\n  ])\n// var citySelectR = this.getWidgetRef('citySelect')\n// axios.get('https://www.fastmock.site/mock/2de212e0dc4b8e0885fea44ab9f2e1d0/vform/getCity').then(function(res) {\n//     checkPerson.loadOptions(res.data.data)\n//   }).catch(function(error) {\n//     console.error(error)\n//   })",
+        "onFormDataChange": "",
+        "onFormValidate": ""
+    }
+}

@@ -1,6 +1,5 @@
 <template>
   <div :class="classObj" class="app-wrapper" :style="{ '--current-color': theme }">
-    
     <!-- try start -->
     <TopHeader 
     v-if="topHeaderView"
@@ -10,7 +9,6 @@
     @confirm-switch="confirmSwitchEvt"
     />
     <!-- try end -->
- 
     <div v-if="device === 'mobile' && sidebar.opened" class="drawer-bg" @click="handleClickOutside"/>
     <sidebar v-if="!sidebar.hide" class="sidebar-container" />
     <div :class="{ hasTagsView: needTagsView, sidebarHide: sidebar.hide }" class="main-container">
@@ -81,7 +79,7 @@ const currentPatient = ref({
   image: '',
   baseInfo: {}
 })
-const tempChoosePatient = {}
+let tempChoosePatient = {}
 function clickPatientEvt(index){
   /**
    * 子组件点击item，传递index，父组件接收到index

@@ -1,0 +1,302 @@
+{
+  "widgetList": [
+    {
+      "type": "textarea",
+      "icon": "textarea-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "doctor0001",
+        "label": "姓名",
+        "labelAlign": "",
+        "rows": 3,
+        "defaultValue": "",
+        "placeholder": "input your name",
+        "columnWidth": "200px",
+        "size": "",
+        "labelWidth": null,
+        "labelHidden": false,
+        "readonly": false,
+        "disabled": false,
+        "hidden": false,
+        "required": false,
+        "requiredHint": "",
+        "validation": "",
+        "validationHint": "",
+        "customClass": [],
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "minLength": null,
+        "maxLength": null,
+        "showWordLimit": false,
+        "onCreated": "",
+        "onMounted": "",
+        "onInput": "",
+        "onChange": "",
+        "onFocus": "",
+        "onBlur": "",
+        "onValidate": ""
+      },
+      "id": "textarea25004"
+    },
+    {
+      "type": "table",
+      "category": "container",
+      "icon": "table",
+      "rows": [
+        {
+          "cols": [
+            {
+              "type": "table-cell",
+              "category": "container",
+              "icon": "table-cell",
+              "internal": true,
+              "widgetList": [
+                {
+                  "type": "card",
+                  "category": "container",
+                  "icon": "card",
+                  "widgetList": [
+                    {
+                      "type": "radio",
+                      "icon": "radio-field",
+                      "formItemFlag": true,
+                      "options": {
+                        "name": "radio58060",
+                        "label": "职称",
+                        "labelAlign": "label-left-align",
+                        "defaultValue": 1,
+                        "columnWidth": "200px",
+                        "size": "",
+                        "displayStyle": "inline",
+                        "buttonStyle": false,
+                        "border": false,
+                        "labelWidth": null,
+                        "labelHidden": false,
+                        "disabled": false,
+                        "hidden": false,
+                        "optionItems": [
+                          {
+                            "label": "住院医师",
+                            "value": 1
+                          },
+                          {
+                            "label": "主治医师",
+                            "value": 2
+                          },
+                          {
+                            "label": "副主任",
+                            "value": 3
+                          },
+                          {
+                            "value": 4,
+                            "label": "主任"
+                          }
+                        ],
+                        "required": false,
+                        "requiredHint": "",
+                        "validation": "",
+                        "validationHint": "",
+                        "customClass": "",
+                        "labelIconClass": null,
+                        "labelIconPosition": "rear",
+                        "labelTooltip": null,
+                        "onCreated": "",
+                        "onMounted": "",
+                        "onChange": "",
+                        "onValidate": ""
+                      },
+                      "id": "radio58060"
+                    },
+                    {
+                      "type": "select",
+                      "icon": "select-field",
+                      "formItemFlag": true,
+                      "options": {
+                        "name": "workyears",
+                        "label": "就业年限",
+                        "labelAlign": "",
+                        "defaultValue": 1,
+                        "placeholder": "",
+                        "columnWidth": "200px",
+                        "size": "",
+                        "labelWidth": null,
+                        "labelHidden": false,
+                        "disabled": false,
+                        "hidden": false,
+                        "clearable": true,
+                        "filterable": false,
+                        "allowCreate": false,
+                        "remote": false,
+                        "automaticDropdown": false,
+                        "multiple": false,
+                        "multipleLimit": 0,
+                        "optionItems": [
+                          {
+                            "label": "0-3",
+                            "value": 1
+                          },
+                          {
+                            "label": "3-5",
+                            "value": 2
+                          },
+                          {
+                            "label": "5-10",
+                            "value": 3
+                          },
+                          {
+                            "value": 4,
+                            "label": "10-20"
+                          },
+                          {
+                            "value": 5,
+                            "label": "20--"
+                          }
+                        ],
+                        "required": false,
+                        "requiredHint": "",
+                        "validation": "",
+                        "validationHint": "",
+                        "customClass": "",
+                        "labelIconClass": null,
+                        "labelIconPosition": "rear",
+                        "labelTooltip": null,
+                        "onCreated": "",
+                        "onMounted": "",
+                        "onRemoteQuery": "",
+                        "onChange": "",
+                        "onFocus": "",
+                        "onBlur": "",
+                        "onValidate": ""
+                      },
+                      "id": "select10890"
+                    },
+                    {
+                      "type": "rate",
+                      "icon": "rate-field",
+                      "formItemFlag": true,
+                      "options": {
+                        "name": "rate82320",
+                        "label": "rate",
+                        "labelAlign": "",
+                        "defaultValue": 0,
+                        "columnWidth": "200px",
+                        "labelWidth": null,
+                        "labelHidden": false,
+                        "disabled": false,
+                        "hidden": false,
+                        "required": false,
+                        "requiredHint": "",
+                        "validation": "",
+                        "validationHint": "",
+                        "customClass": "",
+                        "labelIconClass": null,
+                        "labelIconPosition": "rear",
+                        "labelTooltip": null,
+                        "max": 5,
+                        "lowThreshold": 2,
+                        "highThreshold": 4,
+                        "allowHalf": false,
+                        "showText": false,
+                        "showScore": false,
+                        "onCreated": "",
+                        "onMounted": "",
+                        "onChange": "",
+                        "onValidate": ""
+                      },
+                      "id": "rate82320"
+                    }
+                  ],
+                  "options": {
+                    "name": "doctor-information",
+                    "label": "基本信息",
+                    "hidden": false,
+                    "folded": false,
+                    "showFold": true,
+                    "cardWidth": "100%",
+                    "shadow": "never",
+                    "customClass": ""
+                  },
+                  "id": "card93177"
+                }
+              ],
+              "merged": false,
+              "options": {
+                "name": "table-cell-112247",
+                "cellWidth": "",
+                "cellHeight": "",
+                "colspan": 1,
+                "rowspan": 1,
+                "customClass": ""
+              },
+              "id": "table-cell-112247"
+            }
+          ],
+          "id": "table-row-90923",
+          "merged": false
+        }
+      ],
+      "options": {
+        "name": "table92199",
+        "hidden": false,
+        "customClass": ""
+      },
+      "id": "table92199"
+    },
+    {
+      "type": "textarea",
+      "icon": "textarea-field",
+      "formItemFlag": true,
+      "options": {
+        "name": "comment",
+        "label": "评语",
+        "labelAlign": "",
+        "rows": 3,
+        "defaultValue": "",
+        "placeholder": "",
+        "columnWidth": "200px",
+        "size": "",
+        "labelWidth": null,
+        "labelHidden": false,
+        "readonly": false,
+        "disabled": false,
+        "hidden": false,
+        "required": false,
+        "requiredHint": "",
+        "validation": "",
+        "validationHint": "",
+        "customClass": "",
+        "labelIconClass": null,
+        "labelIconPosition": "rear",
+        "labelTooltip": null,
+        "minLength": null,
+        "maxLength": null,
+        "showWordLimit": false,
+        "onCreated": "",
+        "onMounted": "",
+        "onInput": "",
+        "onChange": "",
+        "onFocus": "",
+        "onBlur": "",
+        "onValidate": ""
+      },
+      "id": "textarea33860"
+    }
+  ],
+  "formConfig": {
+    "modelName": "formData",
+    "refName": "vForm",
+    "rulesName": "rules",
+    "labelWidth": 80,
+    "labelPosition": "left",
+    "size": "",
+    "labelAlign": "label-left-align",
+    "cssCode": "",
+    "customClass": "",
+    "functions": "",
+    "layoutType": "PC",
+    "onFormCreated": "",
+    "onFormMounted": "",
+    "onFormDataChange": ""
+  }
+}

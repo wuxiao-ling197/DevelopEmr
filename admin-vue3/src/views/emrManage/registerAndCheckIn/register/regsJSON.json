@@ -1,0 +1,1046 @@
+{
+    "widgetList": [
+        {
+            "key": 61925,
+            "type": "card",
+            "category": "container",
+            "icon": "card",
+            "widgetList": [
+                {
+                    "key": 85407,
+                    "type": "grid",
+                    "category": "container",
+                    "icon": "grid",
+                    "cols": [
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 78627,
+                                    "type": "input",
+                                    "icon": "text-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "input108524",
+                                        "label": "姓名",
+                                        "labelAlign": "",
+                                        "type": "text",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "readonly": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "showPassword": false,
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "minLength": null,
+                                        "maxLength": null,
+                                        "showWordLimit": false,
+                                        "prefixIcon": "",
+                                        "suffixIcon": "",
+                                        "appendButton": false,
+                                        "appendButtonDisabled": false,
+                                        "buttonIcon": "custom-search",
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onInput": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": "",
+                                        "onAppendButtonClick": ""
+                                    },
+                                    "id": "input108524"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol32730",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-32730"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "sex",
+                                        "label": "性别",
+                                        "labelAlign": "",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "男",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "女",
+                                                "value": 2
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select40203"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol90408",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": []
+                            },
+                            "id": "grid-col-90408"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 78627,
+                                    "type": "input",
+                                    "icon": "text-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "age",
+                                        "label": "年龄",
+                                        "labelAlign": "",
+                                        "type": "text",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "readonly": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "showPassword": false,
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "minLength": null,
+                                        "maxLength": null,
+                                        "showWordLimit": false,
+                                        "prefixIcon": "",
+                                        "suffixIcon": "",
+                                        "appendButton": false,
+                                        "appendButtonDisabled": false,
+                                        "buttonIcon": "custom-search",
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onInput": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": "",
+                                        "onAppendButtonClick": ""
+                                    },
+                                    "id": "input63415"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol20624",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": []
+                            },
+                            "id": "grid-col-20624"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "sheng",
+                                        "label": "省",
+                                        "labelAlign": "",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "select 1",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "select 2",
+                                                "value": 2
+                                            },
+                                            {
+                                                "label": "select 3",
+                                                "value": 3
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": "",
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select31866"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol108636",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-108636"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "shi",
+                                        "label": "市",
+                                        "labelAlign": "",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "select 1",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "select 2",
+                                                "value": 2
+                                            },
+                                            {
+                                                "label": "select 3",
+                                                "value": 3
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": "",
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select41078"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol39946",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-39946"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "xian",
+                                        "label": "县",
+                                        "labelAlign": "",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "select 1",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "select 2",
+                                                "value": 2
+                                            },
+                                            {
+                                                "label": "select 3",
+                                                "value": 3
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select101251"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol80716",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": []
+                            },
+                            "id": "grid-col-80716"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "TP0112",
+                                        "label": "身份证件类别",
+                                        "labelAlign": "",
+                                        "defaultValue": 1,
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "居民身份证",
+                                                "value": 1
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select40267"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol62282",
+                                "hidden": false,
+                                "span": 8,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-62282"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 78627,
+                                    "type": "input",
+                                    "icon": "text-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "identifyNumber",
+                                        "label": "证件号",
+                                        "labelAlign": "",
+                                        "type": "text",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "readonly": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "showPassword": false,
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "minLength": null,
+                                        "maxLength": null,
+                                        "showWordLimit": false,
+                                        "prefixIcon": "",
+                                        "suffixIcon": "",
+                                        "appendButton": false,
+                                        "appendButtonDisabled": false,
+                                        "buttonIcon": "custom-search",
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onInput": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": "",
+                                        "onAppendButtonClick": ""
+                                    },
+                                    "id": "input23467"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol45322",
+                                "hidden": false,
+                                "span": 9,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": []
+                            },
+                            "id": "grid-col-45322"
+                        }
+                    ],
+                    "options": {
+                        "name": "grid102563",
+                        "hidden": false,
+                        "gutter": 12,
+                        "colHeight": null,
+                        "customClass": ""
+                    },
+                    "id": "grid102563"
+                }
+            ],
+            "options": {
+                "name": "card24290",
+                "label": "基础信息",
+                "hidden": false,
+                "folded": false,
+                "showFold": true,
+                "cardWidth": "100%",
+                "shadow": "never",
+                "customClass": []
+            },
+            "id": "card24290"
+        },
+        {
+            "key": 61925,
+            "type": "card",
+            "category": "container",
+            "icon": "card",
+            "widgetList": [
+                {
+                    "key": 85407,
+                    "type": "grid",
+                    "category": "container",
+                    "icon": "grid",
+                    "cols": [
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "科室",
+                                        "label": "科室",
+                                        "labelAlign": "",
+                                        "defaultValue": 3,
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "皮肤科",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "内科",
+                                                "value": 2
+                                            },
+                                            {
+                                                "label": "外科",
+                                                "value": 3
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select33829"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol101178",
+                                "hidden": false,
+                                "span": 6,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-101178"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "doctorname",
+                                        "label": "医生姓名",
+                                        "labelAlign": "",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "select 1",
+                                                "value": 1
+                                            },
+                                            {
+                                                "label": "select 2",
+                                                "value": 2
+                                            },
+                                            {
+                                                "label": "select 3",
+                                                "value": 3
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": "",
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select100100"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol110915",
+                                "hidden": false,
+                                "span": 6,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-110915"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 78627,
+                                    "type": "input",
+                                    "icon": "text-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "desc",
+                                        "label": "备注",
+                                        "labelAlign": "",
+                                        "type": "text",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "readonly": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "showPassword": false,
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": "",
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "minLength": null,
+                                        "maxLength": null,
+                                        "showWordLimit": false,
+                                        "prefixIcon": "",
+                                        "suffixIcon": "",
+                                        "appendButton": false,
+                                        "appendButtonDisabled": false,
+                                        "buttonIcon": "custom-search",
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onInput": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": "",
+                                        "onAppendButtonClick": ""
+                                    },
+                                    "id": "input114291"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol73080",
+                                "hidden": false,
+                                "span": 6,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-73080"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 27379,
+                                    "type": "select",
+                                    "icon": "select-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "payway",
+                                        "label": "付款方式",
+                                        "labelAlign": "",
+                                        "defaultValue": 1,
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "filterable": false,
+                                        "allowCreate": false,
+                                        "remote": false,
+                                        "automaticDropdown": false,
+                                        "multiple": false,
+                                        "multipleLimit": 0,
+                                        "optionItems": [
+                                            {
+                                                "label": "全额",
+                                                "value": 1
+                                            }
+                                        ],
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onRemoteQuery": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": ""
+                                    },
+                                    "id": "select7128"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol41373",
+                                "hidden": false,
+                                "span": 6,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": []
+                            },
+                            "id": "grid-col-41373"
+                        },
+                        {
+                            "type": "grid-col",
+                            "category": "container",
+                            "icon": "grid-col",
+                            "internal": true,
+                            "widgetList": [
+                                {
+                                    "key": 78627,
+                                    "type": "input",
+                                    "icon": "text-field",
+                                    "formItemFlag": true,
+                                    "options": {
+                                        "name": "count",
+                                        "label": "挂号费",
+                                        "labelAlign": "",
+                                        "type": "text",
+                                        "defaultValue": "",
+                                        "placeholder": "",
+                                        "columnWidth": "200px",
+                                        "size": "",
+                                        "labelWidth": null,
+                                        "labelHidden": false,
+                                        "readonly": false,
+                                        "disabled": false,
+                                        "hidden": false,
+                                        "clearable": true,
+                                        "showPassword": false,
+                                        "required": false,
+                                        "requiredHint": "",
+                                        "validation": "",
+                                        "validationHint": "",
+                                        "customClass": [],
+                                        "labelIconClass": null,
+                                        "labelIconPosition": "rear",
+                                        "labelTooltip": null,
+                                        "minLength": null,
+                                        "maxLength": null,
+                                        "showWordLimit": false,
+                                        "prefixIcon": "",
+                                        "suffixIcon": "",
+                                        "appendButton": false,
+                                        "appendButtonDisabled": false,
+                                        "buttonIcon": "custom-search",
+                                        "onCreated": "",
+                                        "onMounted": "",
+                                        "onInput": "",
+                                        "onChange": "",
+                                        "onFocus": "",
+                                        "onBlur": "",
+                                        "onValidate": "",
+                                        "onAppendButtonClick": ""
+                                    },
+                                    "id": "input86854"
+                                }
+                            ],
+                            "options": {
+                                "name": "gridCol111349",
+                                "hidden": false,
+                                "span": 6,
+                                "offset": 0,
+                                "push": 0,
+                                "pull": 0,
+                                "responsive": false,
+                                "md": 12,
+                                "sm": 12,
+                                "xs": 12,
+                                "customClass": ""
+                            },
+                            "id": "grid-col-111349"
+                        }
+                    ],
+                    "options": {
+                        "name": "grid73392",
+                        "hidden": false,
+                        "gutter": 12,
+                        "colHeight": null,
+                        "customClass": []
+                    },
+                    "id": "grid73392"
+                }
+            ],
+            "options": {
+                "name": "card23413",
+                "label": "挂号信息",
+                "hidden": false,
+                "folded": false,
+                "showFold": true,
+                "cardWidth": "100%",
+                "shadow": "never",
+                "customClass": ""
+            },
+            "id": "card23413"
+        }
+    ],
+    "formConfig": {
+        "modelName": "formData",
+        "refName": "vForm",
+        "rulesName": "rules",
+        "labelWidth": 80,
+        "labelPosition": "left",
+        "size": "",
+        "labelAlign": "label-left-align",
+        "cssCode": "",
+        "customClass": [],
+        "functions": "",
+        "layoutType": "PC",
+        "jsonVersion": 3,
+        "onFormCreated": "",
+        "onFormMounted": "",
+        "onFormDataChange": "",
+        "onFormValidate": ""
+    }
+}

@@ -87,7 +87,7 @@
             type="danger"
             text
             underline="true"
-            @click="resetTotp()"
+            @click="resetTotp"
             >丢失认证码，确认重置吗？</el-button
           >
         </div>
@@ -110,6 +110,12 @@ import useUserStore from "@/store/modules/user";
 console.log("user store totp flag=", useUserStore().isValid);
 const userStore = useUserStore();
 const authCodeInfo = useAuthCode.authCodeInfo;
+// 重置报错userID没有，故放开下面两行
+const currentUser = JSON.parse((useUserStore().currentUser));
+const userId = authCodeInfo.uuid || String(currentUser.id)
+
+// const proxy = getCurrentInstance()
+
 const route = useRoute();
 const router = useRouter();
 const qrCodeBase64 = ref(); //二维码显示标志
@@ -142,10 +148,18 @@ watch(
 );
 
 function handleLogin() {
+  console.log('loginref=', loginRef);
+  
   loginRef.value.validate((valid) => {
     if (valid) {
       authCodeInfo.loading = true;
       loginForm.model.uuid = authCodeInfo.uuid;
+      // loginForm.model.uuid = userId;
+      console.log('uuid=',authCodeInfo.uuid);
+      console.log(authCodeInfo);
+      console.log(loginForm.model);
+      
+      
       // 勾选了需要记住密码设置在 cookie 中设置记住用户名和密码，否则移除
       useAuthCode.setUserCookie(loginForm.model);
       // 调用action的登录方法
@@ -193,6 +207,8 @@ function resetTotp() {
   //   message: "若需重置认证码请联系管理员操作",
   //   type: "warning",
   // });
+  // console.log(proxy);
+  
   createTotp(userId).then((res) => {
     if (!res.data.activateTotp) {
       setTimeout(() => {
