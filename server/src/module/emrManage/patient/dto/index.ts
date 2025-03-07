@@ -13,9 +13,9 @@ export enum StatusEnum {
  */
 
 export class CreatePatientDto {
-    // 需要身份证号
-    // 姓名
-    // 性别
+  // 需要身份证号
+  // 姓名
+  // 性别
   // public no: string;
   @ApiProperty({ required: true })
   @IsString()
@@ -60,12 +60,97 @@ export class ChosePatientDto {
 
 // 根据条件选择病人（科室、主治医生、就诊类型、、、）
 export class selectPatientDto {
-    // 科室名称或编码...
-    @ApiProperty({ required: true })
-    @IsString()
-    completeName?: string;
+  // 科室名称或编码...
+  @ApiProperty({ required: true })
+  @IsString()
+  completeName?: string;
 
-    @ApiProperty({ required: true })
-    @IsNumber()
-    completeCode?: number;
-  }
+  @ApiProperty({ required: true })
+  @IsNumber()
+  completeCode?: number;
+}
+
+export class CallPatientNumberDto {
+  @ApiProperty({ required: true })
+  @IsNumber()
+  patientID: number
+}
+
+// 签到后将信息加入排队
+export class CreateQueueDto {
+  @IsNumber()
+  createUid: number;
+
+  writeUid: number;
+
+  patientID: number;
+
+  patientGender: number;
+
+  qNumber: number;
+
+  busTypeSeq: number;
+
+  regDapartmentID: number;
+
+  doctorID: number;
+
+  departmantID: number;
+
+  idCard: string;
+
+  patientJobid: string;
+
+  patientAge: string;
+
+  ticketNumber: string;
+
+  windowNumber: string;
+
+  windowName: string;
+
+  areaName: string;
+
+  vipLevel: string;
+
+  state: string;
+
+  reserveSeq: string;
+
+  reserveType: string;
+
+  type: string;
+
+  qType: string;
+
+  queueState: string;
+
+  reserveDate: Date;
+
+  ticketTime: Date;
+
+  reserveStartTime: Date;
+
+  reserveEndTime: Date;
+
+  reserveTime: Date;
+
+  createDate: Date;
+
+  writeDate: Date;
+}
+
+// 修改排队状态
+export class UpdateQueueStataDto {
+  @ApiProperty({ required: true })
+  @IsNumber()
+  patientID: number;
+
+  @ApiProperty({ required: true })
+  @IsNumber()
+  qNumber: number;
+
+  @ApiProperty({ required: true })
+  @IsString()
+  queueState: string;
+}

@@ -6,92 +6,95 @@
                 <el-button type="primary" @click="handleTemplate(2)">新增form模板</el-button>
                 <el-button type="primary" @click="handleTemplate(4)">新增markdown模板</el-button>
                 <el-button type="primery" @click="handleTemplate(3)">查看模板</el-button>
+                <el-button type="primery" @click="handleTemplate(5)">配置模板</el-button>
             </el-col>
             <el-col :span="8">
                 <el-button @click="handleStop(1)" type="text">启用模板</el-button>
                 <el-button @click="handleStop(2)" type="text">禁用模板</el-button>
             </el-col>
         </el-row>
-        <el-table 
-         ref="tableRef"
-         row-key="date"
-        :data="templateList" 
-        style="width: 100%"
-        @row-click="clickRowEvt"
-        >
-            <el-table-column fixed type="selection" width="55" />
-            <el-table-column 
-            label="创建日期"
-            show-overflow-tooltip
-            width="200">
-                <template #default="scope">
-                    {{ scope.row.writeDate }}
-                </template>
-            </el-table-column>
-            <el-table-column 
-            property="number" 
-            label="模板编号" 
-            show-overflow-tooltip
-            width="220" />
-            <el-table-column 
-            property="name" 
-            label="模板名称" 
-            width="180" />
-            <el-table-column
-            property="category"
-            width="160"
-            label="模板类别"
-            />
-            <el-table-column 
-            property="remark"
-            width="220"
-            label="模板备注"
-            show-overflow-tooltip/>
-            <el-table-column
-            prop="business"
-            label="业务类型"
-            width="120"
+        <el-scrollbar>
+            <el-table 
+            ref="tableRef"
+            row-key="date"
+            :data="templateList" 
+            style="width: 100%"
+            @row-click="clickRowEvt"
             >
-                <template #default="scope">
-                    <el-tag
-                    :type="scope.row.business === '住院' ? 'primary' : 'success'"
-                    disable-transitions
-                    >{{ scope.row.business }}</el-tag>
-                </template>
-            </el-table-column>
-            <el-table-column
-            prop="active"
-            label="是否有效"
-            width="120"
-            >
-                <template #default="scope">
-                    <el-tag
-                    :type="scope.row.active==='1' ? 'success' : 'error'"
-                    disable-transitions
-                    >{{ scope.row.active ? '已启用' : '已禁用' }}</el-tag
-                    >
-                </template>
-            </el-table-column>
-            <el-table-column 
-            fixed="right" 
-            label="操作" 
-            min-width="120">
-                <template #default="scope">
-                    <el-button
-                     link type="primary"
-                     size="small"
-                     @click="handleClick">
-                        Edit
-                    </el-button>
-                    <el-button 
-                    link 
-                    type="primary" 
-                    size="small"
-                    @click.prevent="deleteRow(scope.$index)"
-                    >Detail</el-button>
-                </template>
-            </el-table-column>
-        </el-table>
+                <el-table-column fixed type="selection" width="55" />
+                <el-table-column 
+                label="创建日期"
+                show-overflow-tooltip
+                width="200">
+                    <template #default="scope">
+                        {{ scope.row.writeDate }}
+                    </template>
+                </el-table-column>
+                <el-table-column 
+                property="number" 
+                label="模板编号" 
+                show-overflow-tooltip
+                width="220" />
+                <el-table-column 
+                property="name" 
+                label="模板名称" 
+                width="180" />
+                <el-table-column
+                property="category"
+                width="160"
+                label="模板类别"
+                />
+                <el-table-column 
+                property="remark"
+                width="220"
+                label="模板备注"
+                show-overflow-tooltip/>
+                <el-table-column
+                prop="business"
+                label="业务类型"
+                width="120"
+                >
+                    <template #default="scope">
+                        <el-tag
+                        :type="scope.row.business === '住院' ? 'primary' : 'success'"
+                        disable-transitions
+                        >{{ scope.row.business }}</el-tag>
+                    </template>
+                </el-table-column>
+                <el-table-column
+                prop="active"
+                label="是否有效"
+                width="120"
+                >
+                    <template #default="scope">
+                        <el-tag
+                        :type="scope.row.active==='1' ? 'success' : 'error'"
+                        disable-transitions
+                        >{{ scope.row.active ? '已启用' : '已禁用' }}</el-tag
+                        >
+                    </template>
+                </el-table-column>
+                <el-table-column 
+                fixed="right" 
+                label="操作" 
+                min-width="120">
+                    <template #default="scope">
+                        <el-button
+                        link type="primary"
+                        size="small"
+                        @click="handleClick">
+                            Edit
+                        </el-button>
+                        <el-button 
+                        link 
+                        type="primary" 
+                        size="small"
+                        @click.prevent="deleteRow(scope.$index)"
+                        >Detail</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </el-scrollbar>
         <!-- <el-button class="mt-4" style="width: 100%" @click="onAddItem">
             Add Item
         </el-button> -->
@@ -109,7 +112,7 @@
       </MyDialog>
     </div>
 </template>
-<script lang="ts" setup>
+<script setup>
     import { onMounted, ref } from 'vue';
     import dayjs from 'dayjs';
     import { useRouter } from 'vue-router';
@@ -137,7 +140,7 @@
         medicalRecordStore.setCurrentModule(row)
     }
     const resetDateFilter = () => {
-        tableRef.value!.clearFilter(['date'])
+        tableRef.value.clearFilter(['date'])
     }
     // 禁用、启用模板
     const handleStop = (type) => {
@@ -169,7 +172,7 @@
     const now = new Date()
 
     // 获取模板列表数据
-    async function getTemplateList(query?){
+    async function getTemplateList(query){
         const res = await getEMRModulesListApi(query);
         console.log(res);
         if(res.code == 200 && res.data.list.length>0){
@@ -295,7 +298,7 @@
         createUID: currentUser.createUid,
         writeUID: currentUser.writeUid,
         name: '模板一',
-        tempType: '表单',//1为表单，2为markdown，3为json...
+        templateType: '表单',//1为表单，2为markdown，3为json...
         business: 'outPatient',
         category: '门诊病历',
         permission: 'string',
@@ -336,13 +339,17 @@
         // 点击配置弹窗的确定后拿到templateObj，处理后传递到创建模板的页面，作为配置项，
         // 在那边保存才调用接口创建模板，这边只是暂存和初步处理模板配置项
         console.log(templateObj.value);
-        let objJson = JSON.stringify(templateObj.value)
-        let type = templateObj.value.tempType==='表单'?'1':'2'
+        // let objJson = JSON.stringify(templateObj.value)
+        let type = templateObj.value.templateType==='表单'?'1':'2'
+        // 跳转之前保存配置到store
+        console.log(medicalRecordStore);
+        
+        medicalRecordStore.setTemplateConfig(templateObj.value)
         // 点击确认后跳转
         router.push({
             path: "/emrManage/template/basicInfo",
             // query: { id:'add',tempType: type==2?'1':'2'}
-            query: { id:'add',tempType: type,templateObj:objJson}
+            query: { id:'add',tempType: type}
         });
     }
     const myDialogCancelEvt = ()=>{
@@ -371,11 +378,6 @@
                 await showConfigEvt()
                 // 这边配置完成，点击确认后才跳转下一页
                 // 将配置后的对象，用某种方法传给下一页接受
-                
-                // router.push({
-                //     path: "/emrManage/template/basicInfo",
-                //     query: { id:'add',tempType: type==2?'1':'2'}
-                // });
                 break;
             case 3:
                 // 查看
@@ -389,6 +391,13 @@
                 router.push({
                     path: "/emrManage/template/basicInfo",
                     query: { id:'detail' }
+                });
+                break;
+            case 5:
+                // 配置模板选项字段，动态生成模板
+                router.push({
+                    path: "/emrManage/template/dynamicTemplateConfig",
+                    // query: { id:'detail' }
                 });
                 break;
             default:
@@ -480,5 +489,8 @@
     }
     .el-row:last-child {
     margin-bottom: 0;
+    }
+    .el-scrollbar {
+        height: calc(100% - 32px - 20px);
     }
 </style>

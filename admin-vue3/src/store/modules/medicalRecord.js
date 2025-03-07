@@ -13,7 +13,8 @@ const useMedicalRecordStore = defineStore(
             type: [{ code: 'name' }],//把病历元数据大类放在本地
             range: [{ code: 'name' }],
             value: [{ code: 'name' }],
-            emrType: localStorage.getItem('emr_type') || '1'//创建病历类型，1为form格式，2为markdowm格式
+            emrType: localStorage.getItem('emr_type') || '1',//创建病历类型，1为form格式，2为markdowm格式
+            templateObj: JSON.parse(localStorage.getItem('template_object')) || {}
         }),
         actions: {
             // 获取病历模板
@@ -63,6 +64,10 @@ const useMedicalRecordStore = defineStore(
                     })
                 })
             },
+            getTemplateConfig() {
+                // 获取模板配置项
+                // this.templateObj = localStorage.getItem('template_object')
+            },
             setCurrentModule(temp) {
                 this.currentModule = temp
                 localStorage.setItem('current_module', JSON.stringify(temp))
@@ -70,6 +75,13 @@ const useMedicalRecordStore = defineStore(
             setCurrentMR(MR) {
                 this.currentMR = MR
                 localStorage.setItem('current_medical_record', JSON.stringify(MR))
+            },
+            setTemplateConfig(obj) {
+                // 设置模板配置项
+                this.templateObj = obj
+                let objJson = JSON.stringify(obj)
+                let type = obj.tempType === '表单' ? '1' : '2'
+                localStorage.setItem('template_object', objJson)
             },
             removeMetadata() {
                 localStorage.removeItem('metadata')

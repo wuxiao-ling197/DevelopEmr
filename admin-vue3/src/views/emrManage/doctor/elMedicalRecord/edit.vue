@@ -101,7 +101,7 @@
       :click_confirm="selectModuleConfirmEvt"
       :click_cancel="selectModuleCancelEvt">
       <template #content>
-        <div class="select-template-box">
+        <!-- <div class="select-template-box">
           <div class="left">
             <el-input
               v-model="filterText"
@@ -123,7 +123,11 @@
             <p>text content</p>
             预览模板
           </div>
-        </div>
+        </div> -->
+        <MyTree
+        title="基础模板"
+        :data="treeData"
+        ></MyTree>
       </template>
       </MyDialog>
 
@@ -147,7 +151,9 @@
   import { Delete, Edit, Search, Share, Upload, } from '@element-plus/icons-vue'
   // 引入我的组件
   import MyDialog from '@/components/MyDialog'
+  import MyTree from '@/components/MyTree'
   import ConfigForm from '../../template/baseTemplates/templateConfig.vue';
+
   import { nextTick, onMounted, ref } from 'vue';
   import usePatientStore from '@/store/modules/patient';
   import useUserStore from '@/store/modules/user';
@@ -164,11 +170,11 @@
   import { getPatientMRApi } from '@/api/medicalRecord/emrApi';
   import useMedicalRecordStore from '@/store/modules/medicalRecord';
   import { createTemplateApi } from '@/api/medicalRecord/emrApi';
-import { getEMRModulesListApi } from '../../../../api/medicalRecord/emrApi';
+  import { getEMRModulesListApi, getEMRModulesTreeApi } from '@/api/medicalRecord/emrApi';
   
   export default {
     name: 'MedicalRecord',
-    components: { MyDialog,ConfigForm },
+    components: { MyDialog,ConfigForm,MyTree },
     data() {
       return {
         key: 1, // 为了能每次切换权限的时候重新初始化指令
@@ -269,45 +275,17 @@ import { getEMRModulesListApi } from '../../../../api/medicalRecord/emrApi';
         treeRef.value.filter(val)
       })
 
-      // 获取模板列表数据，根据模板大类处理成树形数据
+      // 获取模板列表树形数据
       const getEMRModulesTree = async()=>{
-        let res = await getEMRModulesListApi()
-        if(res.code==200){
-          console.log(res.data);
-          // 这个在前端做还是后端做？选择一下
-          const formTemp = res.data.list.filter(item => {
-            item.payload.type === '1'
-          });
-          const mdTemp = res.data.list.filter(item => {
-            item.payload.type === '2'
-          });
-          // 这个应该有一张表或者规定字段（定义枚举），目前不清楚，暂时根据存入的数据筛一下
-          const categoryList = []
-          res.data.list.forEach(item => {
-            // 如果list里没有当前category才push
-            if(!categoryList.some(cate => cate === item.category)){
-              categoryList.push(item.category)
-            }
-            // if(categoryList.findIndex(cate => cate === item.category) == -1){
-            //   categoryList.push(item.category)
-            // }
-          });
-          // 根据类别，将模板列表拆分成组，改造成tree需要的数据格式[{cate,children:[]},{cate,children:[]},{}]
-          let treeData = []
-          categoryList.forEach(cate=>{
-            treeData.push({label:cate,children:[]})
-            
-          })
-          treeData.forEach(td=>{
-            res.data.list.forEach(md => {
-              if(td.label==md.category){
-                md.label = md.name
-                td.children.push(md)
-              }
-            })
-          })
-          return treeData
+        // 要传入模板类型参数tempType
+        let res = await getEMRModulesTreeApi({tempType: emrType})
+        console.log(res);
+        
+        let treeData = [];
+        if(res.code === 200){
+          treeData = res.data.treeData
         }
+        return treeData
       }
 
       const treeData = ref([
@@ -369,11 +347,6 @@ import { getEMRModulesListApi } from '../../../../api/medicalRecord/emrApi';
           console.log('currentPatient:');
           console.log(currentPatient);
         }
-        // 获取feildList
-        console.log('field-----------');
-        const res = await getFieldListApi({category: '人口学及社会经济学特征'});
-        console.log(res);
-
         treeData.value = await getEMRModulesTree()
         console.log(treeData.value);
         

@@ -11,11 +11,11 @@ import { ResCompEntity } from '../resuser/entities/rescompany.entity';
 @Injectable()
 export class HrDeptService {
   constructor(
-    @InjectRepository(HrDeptEntity, 'shared')
+    @InjectRepository(HrDeptEntity, 'odoo18-2')
     private readonly hrDeptEntityRep: Repository<HrDeptEntity>,
-    @InjectRepository(ResCompEntity, 'shared')
+    @InjectRepository(ResCompEntity, 'odoo18-2')
     private readonly companyEntityRep: Repository<ResCompEntity>,
-  ) {}
+  ) { }
 
   async create(createHrDeptDto: CreateHrDeptDto) {
     if (createHrDeptDto.parentId) {
@@ -38,6 +38,7 @@ export class HrDeptService {
 
   async findAll(query: ListHrDeptDto) {
     const entity = this.hrDeptEntityRep.createQueryBuilder('entity');
+    // 数据库里available全是f和null……
     entity.where('entity.available = :available', { available: true });
 
     if (query.name) {
@@ -47,6 +48,10 @@ export class HrDeptService {
       entity.andWhere('entity.available = :available', { available: query.available });
     }
     const res = await entity.getMany();
+    console.log('deptlist');
+    console.log(res);
+
+
     return ResultData.ok(res);
   }
 

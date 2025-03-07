@@ -9,7 +9,13 @@ import { ResUserService } from 'src/module/share/resuser/resuser.service';
 
 @Injectable()
 export class JwtAuthGuard extends AuthGuard('jwt') {
-  private globalWhiteList = [];
+  // 配置白名单，或者请求头携带Authorization 
+  private globalWhiteList = [
+    // 不知道为什么没生效，只能在dev.yml里配置白名单
+    // { path: '/emrManage/regisCheck/allDocumentList', method: 'GET' },
+    // { method: 'GET', path: '/docs' },
+    // { method: 'GET', path: '/docs-json' }
+  ];
   constructor(
     private readonly reflector: Reflector,
     @Inject(ResUserService)
@@ -49,7 +55,7 @@ export class JwtAuthGuard extends AuthGuard('jwt') {
       // 请求方法类型相同
       if (req.method.toUpperCase() === route.method.toUpperCase()) {
         // 对比 url
-        return !!pathToRegexp(route.path).exec(req.url);
+        return !!pathToRegexp(route.path).exec(req.path);
       }
       return false;
     });

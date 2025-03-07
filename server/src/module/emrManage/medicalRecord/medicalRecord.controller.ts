@@ -14,7 +14,7 @@ import { CreateMedicalRecordDto, ListMedicalRecordDto, ChangeStatusDto } from '.
 @ApiTags('病历管理')
 @Controller('emrManage/MedicalRecord')
 export class MedicalRecordController {
-  constructor(private readonly MedicalRecordService: MedicalRecordService) {}
+  constructor(private readonly MedicalRecordService: MedicalRecordService) { }
 
   @ApiOperation({
     summary: '病历-创建',
@@ -26,19 +26,6 @@ export class MedicalRecordController {
   // @RequirePermission('emr:MedicalRecord:add')//权限标识
   @Post()
   create(@Body() createMedicalRecordDto: any) {
-    // create(@Body() createMedicalRecordDto: CreateMedicalRecordDto) {
-    // createMedicalRecordDto = {
-    //     "payload": "{\"type\":\"体检单\",\"key2\":\"value2\"}",
-    //     "participants":"{\"participant1\":{\"name\":\"John Doe\",\"age\":30},\"participant2\":{\"name\":\"Jane Smith\",\"age\":25}}",
-    //     "meta": "some metadata string",
-    //     "payloadID": "123456",
-    //     "patientID": "654321",
-    //     "jobID": "789012",
-    //     "header": "{\"authorization\":\"Bearer some-token\",\"contentType\":\"application/json\"}",
-    //     "active": "true",
-    //     "writeUID": 2293,
-    //     "createUID": 2293
-    //   }
     return this.MedicalRecordService.create(createMedicalRecordDto);
   }
 
@@ -76,7 +63,7 @@ export class MedicalRecordController {
   // @RequirePermission('system:MedicalRecord:query')
   @Get(':patient')
   async findOne(@Param('patient') patient: string) {
-    console.log('patient:',patient);
+    console.log('patient:', patient);
     return this.MedicalRecordService.findPatientMR(patient);
   }
 

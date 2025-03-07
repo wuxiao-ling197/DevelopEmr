@@ -2,9 +2,10 @@
 import { Controller, Get, Post, Body, Put, Param, Query, Res, Delete, Request, UseGuards, CanActivate } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiConsumes, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { TemplateService } from './template.service';
-import { Response } from 'express';
+import { query, Response } from 'express';
 import { RequirePermission } from 'src/common/decorators/require-premission.decorator';
 import { RequireRole } from 'src/common/decorators/require-role.decorator';
+import { CreateTemplateDto, FindTemplateDto } from './dto';
 
 
 /**
@@ -13,15 +14,15 @@ import { RequireRole } from 'src/common/decorators/require-role.decorator';
 @ApiTags('模板管理')
 @Controller('emrManage/EMRModules')
 export class TemplateController {
-  constructor(private readonly TemplateService: TemplateService) {}
+  constructor(private readonly TemplateService: TemplateService) { }
   @ApiOperation({
     summary: '查询模板列表',
   })
   // @RequirePermission('emr:Patient:add')//权限标识
   @Get('findTemplate')
-  findTemplateList() {
+  findTemplateList(@Query() query: FindTemplateDto) {
     console.log('========findTemplate========');
-    return this.TemplateService.findAll();
+    return this.TemplateService.findAll(query);
   }
 
   @ApiOperation({
@@ -29,11 +30,11 @@ export class TemplateController {
   })
   // @RequirePermission('emr:Patient:add')//权限标识
   @Get('selectTemplate')
-  selectTemplate(@Query('templateID') templateID: number) {
-    console.log(templateID);
-    
+  selectTemplate(@Query() query: any) {
+    console.log(query);
+
     console.log('========selectOneTemplate========');
-    return this.TemplateService.findOne(templateID);
+    return this.TemplateService.findOne(query);
   }
 
   @ApiOperation({
@@ -43,7 +44,10 @@ export class TemplateController {
   @Post('createTemplate')
   createTemplate(@Body() createTemplateDto: any) {
     console.log('========createTemplate========');
-    
-    return this.TemplateService.createTemplate(createTemplateDto);
+    try {
+      return this.TemplateService.createTemplate(createTemplateDto);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

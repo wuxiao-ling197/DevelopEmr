@@ -2,7 +2,7 @@
     <div class="app-container">
         <el-container>
             <!-- <el-header>Header</el-header> -->
-            <el-container>
+            <!-- <el-container> -->
                 <el-aside width="300px">
                     <el-input v-model="selectKey" @blur="selectEvt(selectKey)">
 
@@ -169,7 +169,7 @@
                     </el-form>
                     <template #footer>Footer content</template>
                 </el-main>
-            </el-container>
+            <!-- </el-container> -->
         </el-container>
     </div>
 </template>
@@ -177,8 +177,9 @@
   <script setup>
 import { ElMessage } from 'element-plus';
 import { onMounted, reactive, ref } from 'vue';
+import { useRouter } from 'vue-router';
 
-
+    const router = useRouter();
     /**tree的数据 */
     const handleNodeClick = (data) => {
         console.log(data)
@@ -190,9 +191,6 @@ import { onMounted, reactive, ref } from 'vue';
             readOnlyRedio.value = data.info.readOnly?'1':'2'
             // 暂存配置
             origConfig = Object.assign({},config)
-            // console.log(config);
-            // console.log(origConfig);
-            
         }
     }
 
@@ -561,7 +559,6 @@ import { onMounted, reactive, ref } from 'vue';
         let res = await updateTemplateConfigApi(temp,config)
         console.log(res);
         if(res.code===200){
-            
             ElMessage({type:'success',message:res.msg})
         }else{
             ElMessage({type:'error',message:res.msg})
@@ -587,7 +584,7 @@ import { onMounted, reactive, ref } from 'vue';
     const creatComponent = ()=>{
         // payload
         // 弹出或者跳转
-
+        router.push('/emrManage/template/componentEditor')
     }
     
   </script>

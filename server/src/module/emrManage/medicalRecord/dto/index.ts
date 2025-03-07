@@ -1,4 +1,4 @@
-import { IsString, IsEnum, IsArray, Length, IsOptional, IsNumber, IsNumberString, IsEmail, IsDate, IsJSON, IsBoolean } from 'class-validator';
+import { IsString, IsEnum, IsArray, Length, IsOptional, IsNumber, IsNumberString, IsEmail, IsDate, IsJSON, IsBoolean, IsObject } from 'class-validator';
 import { ApiProperty, PartialType } from '@nestjs/swagger';
 import { PagingDto } from 'src/common/dto/index';
 import { extend } from 'dayjs';
@@ -30,7 +30,6 @@ export class EmrHeaderDto {
 
   @ApiProperty({ required: true })
   @IsString()
-  @IsEnum(StatusEnum)
   id: string;
   // id：(payload文档id) 
 
@@ -43,12 +42,12 @@ export class EmrHeaderDto {
   @IsString()
   patient: string;
   // patient (病人unique) 
-  
+
   @ApiProperty({ required: true })
   @IsString()
   project: string;
-  // project (项目编号；区分payload类型) 
-  
+  // project (项目编号；区分payload类型，用于病历特殊情况的标签显示) 
+
   @ApiProperty({ required: true })
   @IsEnum(StatusEnum)
   status: string;
@@ -64,7 +63,7 @@ export class CreateMedicalRecordDto {
   @ApiProperty({ required: true })
   @IsNumber()
   writeUID: number;
-  
+
   @ApiProperty({ required: true })
   @IsString()
   active: string;
@@ -72,8 +71,8 @@ export class CreateMedicalRecordDto {
   // @ApiProperty({ required: true, type: EmrHeaderDto })
   // header: EmrHeaderDto;
   @ApiProperty({ required: true })
-  @IsString()
-  header: string;
+  @IsObject()
+  header: Record<string, any>;
 
   @ApiProperty({ required: true })
   @IsString()
@@ -82,16 +81,21 @@ export class CreateMedicalRecordDto {
   @ApiProperty({ required: true })
   @IsString()
   patientID: string;
-  
+
   @ApiProperty({ required: true })
   @IsString()
   payloadID: string;
+
+  @IsOptional()
+  @IsString()
+  @IsEnum(BusinessEnum)
+  businessType: string
 
   @ApiProperty({ required: false })
   @IsOptional()
   @IsDate()
   createDate?: Date;
-  
+
   @ApiProperty({ required: false })
   @IsOptional()
   @IsDate()
@@ -103,12 +107,12 @@ export class CreateMedicalRecordDto {
   meta: string;
 
   @ApiProperty({ required: true })
-  @IsString()
-  participants: string;
+  @IsObject()
+  participants: Record<string, any>;
 
   @ApiProperty({ required: true })
-  @IsString()
-  payload: string;
+  @IsObject()
+  payload: Record<string, any>;
 }
 
 /**
@@ -147,7 +151,7 @@ export class ChangeStatusDto {
   status: string;
 }
 
-export class ListMedicalRecordDto{
+export class ListMedicalRecordDto {
   @ApiProperty({ required: false })
   @IsOptional()
   @IsString()

@@ -8,9 +8,9 @@ import { ResCompEntity } from '../resuser/entities/rescompany.entity';
 @Global()
 @Module({
   // forFeature方法来指定实体所使用的连接
-  imports: [TypeOrmModule.forFeature([HrDeptEntity, ResCompEntity], 'shared')],
+  imports: [TypeOrmModule.forFeature([HrDeptEntity, ResCompEntity], 'odoo18-2')],
   controllers: [HrDeptController],
   providers: [HrDeptService],
   exports: [HrDeptService],
 })
-export class HrDeptModule {}
+export class HrDeptModule { }

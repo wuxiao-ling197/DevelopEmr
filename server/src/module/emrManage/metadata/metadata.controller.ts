@@ -1,9 +1,6 @@
 import { Controller, Get, Post, Body, Put, Param, Query, Res, Delete, Request, UseGuards, CanActivate } from '@nestjs/common';
 import { ApiTags, ApiOperation, ApiBody, ApiConsumes, ApiQuery, ApiBearerAuth } from '@nestjs/swagger';
 import { MetadataService } from './metadata.service';
-import { Response } from 'express';
-import { RequirePermission } from 'src/common/decorators/require-premission.decorator';
-import { RequireRole } from 'src/common/decorators/require-role.decorator';
 
 import { CreateMetadataDto, ListMetadataDto, ChangeStatusDto, SelectFieldListDto } from './dto/index';
 
@@ -14,19 +11,28 @@ import { CreateMetadataDto, ListMetadataDto, ChangeStatusDto, SelectFieldListDto
 @Controller('emrManage/Metadata')
 export class MetadataController {
   constructor(private readonly MetadataService: MetadataService) { }
-
-  // @ApiOperation({
-  //   summary: '信息中心-',
-  // })
-  // @RequirePermission('system:Metadata:query')
-  // @Get('/profile')
-  // profile(@Request() req) {
-  //   const Metadata = req.Metadata.Metadata;
-  //   return this.MetadataService.profile(Metadata);
-  // }
+  @ApiOperation({
+    summary: '获取所有table实体元数据',
+  })
+  // @RequirePermission('emr:Patient:add')//权限标识
+  @Get('entitiesMetadata')
+  getEntitiesField(@Query() query: any) {
+    console.log('========getEntitiesField========');
+    return this.MetadataService.getField();
+  }
 
   @ApiOperation({
-    summary: '元数据-查询大类',
+    summary: 'fieldList-查询单个实体元数据 设置表单数据源',
+  })
+  // @RequirePermission('emr:Patient:add')//权限标识
+  @Get('hospitalPatientMetadata')
+  getPatientField(@Query('entityName') entityName: string) {
+    console.log('========getPatientEntityField========');
+    return this.MetadataService.getPatientEntityField(entityName);
+  }
+
+  @ApiOperation({
+    summary: '元数据-获取大类categoryList',
   })
   // @UseGuards(<CanActivate[]>[])
   // @RequirePermission('emr:Metadata:add')//权限标识
@@ -36,7 +42,7 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: '元数据-查询值域code',
+    summary: '元数据-根据category查询值域code和codeName',
   })
   // @RequirePermission('system:Metadata:query')
   @Get('codelist:category')
@@ -45,42 +51,39 @@ export class MetadataController {
   }
 
   @ApiOperation({
-    summary: '元数据-查询值value',
+    summary: '元数据-根据code或者codeName查询值value和valueMean',
   })
   // @RequirePermission('system:Metadata:query')
   @Get('valuelist:code')
-  findOne(@Param('code') code: string) {
+  findOne(@Query('code') code: string) {
     // return this.MetadataService.findOne(+MetadataId);//通过一元运算将string转换成number
     return this.MetadataService.findValueListByCode(code);
   }
 
   @ApiOperation({
-    summary: '元数据-通过编号查询完整数据对象',
+    summary: 'fieldList-根据category获取code和codename 设置表单数据源',
   })
-  @ApiBody({
-    type: ChangeStatusDto,
-    required: true,
-  })
-  // @RequireRole('admin')
-  @Get('metadata:no')
-  findMetadataByNo(@Param('no') no: string) {
-    return this.MetadataService.findByNo(no);
-  }
-
-  @ApiOperation({
-    summary: '元数据-获取表单fieldList',
-  })
-  @ApiBody({
-    type: ChangeStatusDto,
+  @ApiQuery({
+    type: SelectFieldListDto,
     required: true,
   })
   // @RequireRole('admin')
   @Get('fieldList')
   getFieldList(@Query() query: SelectFieldListDto) {
-    // console.log('getFieldListController-----80---');
-    // console.log(query.category);
+    console.log('getFieldListController-----80---');
+    console.log(query.category);
     return this.MetadataService.getFieldList(query);
   }
 
-
+  @ApiOperation({
+    summary: '元数据-根据code或者codeName查询数据源的值value和valueMean，以选项对象列表形式返回',
+  })
+  // @RequirePermission('system:Metadata:query')
+  @Get('getDynamicOptions')
+  getOptions(@Query('code') code: string) {
+    console.log('setOptionsCode:::');
+    console.log(code);
+    // return this.MetadataService.findOne(+MetadataId);//通过一元运算将string转换成number
+    return this.MetadataService.findValueListByCode(code);
+  }
 }

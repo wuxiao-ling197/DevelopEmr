@@ -15,7 +15,7 @@ export function getHospitalMetadataCategoryApi(query) {
   })
 }
 /**
- * 获取feildList
+ * 根据类别获取卫生信息元数据feildList
  * @param {category?: string, categoryCode?: string} query 
  * @returns 
  */
@@ -28,14 +28,67 @@ export function getFieldListApi(query) {
 }
 
 /**
- * 获取patient基础信息元数据
+ * 获取所有后端实体的元数据
  * @param {*} query 
  * @returns 
  */
 export function getEntitiesMetaDataApi(query) {
   return request({
-    url: `/emrManage/Metadata/patientInfoField`,
+    url: `/emrManage/Metadata/entitiesMetadata`,
     method: 'get',
     params: query
   })
 }
+/**
+ * 获取patient实体的元数据
+ * @param {*} query 
+ * @returns 
+ */
+export function getPatientInfoEntityMetaDataApi(query) {
+  return request({
+    url: `/emrManage/Metadata/hospitalPatientMetadata`,
+    method: 'get',
+    params: query
+  })
+}
+
+/**
+ * 动态获取选框选项
+ * @param {*} query 
+ * @returns 
+ */
+export function getDynamicOptionsApi(query) {
+  return request({
+    url: `/emrManage/Metadata/getDynamicOptions`,
+    method: 'get',
+    params: query
+  })
+}
+
+/**
+ * 动态获取模板字段
+ * @param {*} query 
+ * @returns 
+ */
+export function generateTemplateApi(query) {
+  return request({
+    url: `/emrManage/dynamicOptions/generateTemplate`,
+    method: 'get',
+    params: query
+  })
+}
+
+/**
+ * 获取所有可选模板配置字段
+ * @param {*} query 
+ * @returns 
+ */
+export function getTemplateFeildsApi(query) {
+  return request({
+    url: `/emrManage/dynamicOptions/getTemplateFeildList`,
+    method: 'get',
+    params: query
+  })
+}
+
+

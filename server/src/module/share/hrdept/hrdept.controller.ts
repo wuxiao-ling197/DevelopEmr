@@ -7,7 +7,7 @@ import { RequirePermission } from 'src/common/decorators/require-premission.deco
 @ApiTags('部门管理')
 @Controller('system/dept')
 export class HrDeptController {
-  constructor(private readonly hrdeptService: HrDeptService) {}
+  constructor(private readonly hrdeptService: HrDeptService) { }
 
   @ApiOperation({
     summary: '部门管理-创建',

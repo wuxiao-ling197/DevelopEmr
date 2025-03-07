@@ -49,7 +49,10 @@ export class HrDeptEntity extends SharedEntity {
   @Column({ type: 'varchar', name: 'code', default: null, comment: '科室编码' })
   public code: string;
 
-  @Column({ type: 'text', name: 'note', default: null, comment: '科室编码' })
+  @Column({ type: 'varchar', name: 'DeptCode', default: null, comment: '部门编码' })
+  public DeptCode: string;
+
+  @Column({ type: 'text', name: 'note', default: null, comment: 'Note' })
   public note: string;
 
   @Column({ type: 'boolean', name: 'virtual', default: null, comment: '非实体部门' })

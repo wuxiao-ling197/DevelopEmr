@@ -79,6 +79,19 @@ export function getEMRModulesListApi(query) {
   })
 }
 /**
+ * 获取记录模板
+ * @param {*} query 
+ * @returns 
+ */
+export function getEMRModulesTreeApi(query) {
+  query.transTree = true;
+  return request({
+    url: '/emrManage/EMRModules/findTemplate',
+    method: 'get',
+    params: query
+  })
+}
+/**
  * 创建模板，可能编辑（update）模板也是执行的这一条
  * @param {*} data 
  * @returns 

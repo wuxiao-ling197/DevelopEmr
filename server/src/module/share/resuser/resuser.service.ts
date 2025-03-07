@@ -42,17 +42,17 @@ import { ResoureceEntity } from './entities/resource.entity';
 export class ResUserService {
   private pwdContext: CryptoContext;
   constructor(
-    @InjectRepository(ResUserEntity, 'shared')
+    @InjectRepository(ResUserEntity, 'odoo18-2')
     private readonly userRepo: Repository<ResUserEntity>,
-    @InjectRepository(HrDeptEntity, 'shared')
+    @InjectRepository(HrDeptEntity, 'odoo18-2')
     private readonly deptEntityRep: Repository<HrDeptEntity>,
-    @InjectRepository(HrEmpEntity, 'shared')
+    @InjectRepository(HrEmpEntity, 'odoo18-2')
     private readonly employeeEntityRep: Repository<HrEmpEntity>,
-    @InjectRepository(ResCompEntity, 'shared')
+    @InjectRepository(ResCompEntity, 'odoo18-2')
     private readonly companyEntityRep: Repository<ResCompEntity>,
-    @InjectRepository(CompUserEntity, 'shared')
+    @InjectRepository(CompUserEntity, 'odoo18-2')
     private readonly userWithcompanyEntityRep: Repository<CompUserEntity>,
-    @InjectRepository(ResoureceEntity, 'shared')
+    @InjectRepository(ResoureceEntity, 'odoo18-2')
     private readonly resourceRep: Repository<ResoureceEntity>,
     @InjectRepository(SysUserWithRoleEntity)
     private readonly sysUserWithRoleEntityRep: Repository<SysUserWithRoleEntity>,
@@ -399,20 +399,27 @@ export class ResUserService {
    * 登陆
    */
   async login(user: LoginDto, clientInfo: ClientInfoDto) {
+
     const data = await this.userRepo.createQueryBuilder('user').select(['user.id', 'user.password']).where('user.login = :login', { login: user.username }).getOne();
 
     if (!data) {
       return ResultData.fail(500, '系统中不存在该用户，请先注册');
     }
-    const result = await this.pwdContext.verifyPasslib(user.password, data.password);
-    if (!result) {
-      return ResultData.fail(500, `密码错误,请重新输入`);
+    try {
+      const result = await this.pwdContext.verifyPasslib(user.password, data.password);
+      if (!result) {
+        return ResultData.fail(500, `密码错误,请重新输入`);
+      }
+    } catch (err) {
+      console.log(err);
+      return ResultData.fail(500, `server error`);
     }
 
     const userData = await this.getUserinfo(data.id);
     if (userData.active === false) {
       return ResultData.fail(500, `您已被禁用，如需正常使用请联系管理员`);
     }
+    console.log(userData);
 
     const loginDate = new Date();
 
@@ -517,9 +524,10 @@ export class ResUserService {
     if (cu && cIds.length > 1) {
       const cIds = cu.map((item) => item.cid);
       companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id IN (:...cIds)', { cIds }).getMany();
-    } else {
-      companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id = :cIds', { cIds }).getOne();
     }
+    // else {
+    //   companys = await this.companyEntityRep.createQueryBuilder('comp').where('comp.id = :cIds', { cIds }).getOne();
+    // }
 
     data['roles'] = roles; //添加一个子级属性 这边返回到前端后数据结构为user:{user的属性，employee:{employee的属性，department:{department的属性}},role:{role的属性}}
     data['companys'] = companys;

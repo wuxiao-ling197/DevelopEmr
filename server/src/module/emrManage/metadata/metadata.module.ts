@@ -9,7 +9,7 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Global()
 @Module({
   imports: [
-    TypeOrmModule.forFeature([MetadataEntity],'shared'),
+    TypeOrmModule.forFeature([MetadataEntity], 'odoo18-2'),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
@@ -22,4 +22,4 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
   providers: [MetadataService],
   exports: [MetadataService],
 })
-export class MetadataModule {}
+export class MetadataModule { }

@@ -3,7 +3,8 @@ import { createApp } from 'vue'
 import Cookies from 'js-cookie'
 
 import ElementPlus from 'element-plus'
-import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
+// import locale from 'element-plus/lib/locale/lang/zh-cn' // 中文语言
+import locale from 'element-plus/es/locale/lang/zh-cn'
 
 import '@/assets/styles/index.scss' // global css
 
@@ -12,9 +13,17 @@ import store from './store'
 import router from './router'
 import directive from './directive' // directive
 
+import request from '@/utils/request'
+/* 注意：如果你的项目中有使用axios，请用下面一行代码将全局axios复位为你的axios！！ */
+window.myAxios = request
+console.log(request);
+
+console.log(window.myAxios);
+
 
 import draggable from "dd-form-draggable"
-import VFormDesigner from '@/assets/draggable/dist/designer.es'
+// import VFormDesigner from '@/assets/draggable/dist/designer.es'
+import VForm3 from '@/../lib/vform/designer.umd.js'
 import '@/assets/draggable/dist/designer.style.css';
 
 // 注册指令
@@ -55,9 +64,17 @@ import VMdEditor from '@kangc/v-md-editor/lib/codemirror-editor';
 import '@kangc/v-md-editor/lib/style/codemirror-editor.css';
 import githubTheme from '@kangc/v-md-editor/lib/theme/github.js';
 import '@kangc/v-md-editor/lib/theme/style/github.css';
+// 预览组件
+import VMdPreview from '@kangc/v-md-editor/lib/preview';
+import '@kangc/v-md-editor/lib/style/preview.css';
 
 // highlightjs
 import hljs from 'highlight.js';
+
+// katex数学公式支持
+// import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/cdn';// cdn引入katex资源，需要在index.html中引入js和css
+import createKatexPlugin from '@kangc/v-md-editor/lib/plugins/katex/npm';
+import 'katex/dist/katex.min.css'
 
 // codemirror 编辑器的相关资源
 import Codemirror from 'codemirror';
@@ -83,9 +100,31 @@ import 'codemirror/lib/codemirror.css';
 
 VMdEditor.Codemirror = Codemirror;
 VMdEditor.use(githubTheme, {
+  config: {
+    toc: {
+      includeLevel: [2, 3],
+    },
+  },
   Hljs: hljs,
 });
+VMdEditor.use(createKatexPlugin({
+  strict: false,// 设置非严格模式解析公式
+  macros: {
+    // 自定义宏，输入前面的内容，被替换为后面的内容
+    '\\dose': '\\text{剂量}',
+    '\\freq': '\\text{频率}',
+    '\\conc': '\\text{浓度}'
+  }
+}))
 
+VMdPreview.use(githubTheme, {
+  config: {
+    toc: {
+      includeLevel: [3, 4],
+    },
+  },
+  Hljs: hljs,
+});
 
 const app = createApp(App)
 
@@ -115,9 +154,11 @@ app.use(router)
 app.use(store)
 app.use(plugins)
 app.use(elementIcons)
-app.use(VFormDesigner);
+app.use(VForm3);
+// app.use(VFormDesigner);
 app.component('svg-icon', SvgIcon)
 app.use(VMdEditor)
+app.use(VMdPreview)
 directive(app)
 
 // 使用element-plus 并且设置全局的大小

@@ -97,11 +97,12 @@ export class SelectFieldListDto {
   category?: string;
 
   //类别代码
-  // @ApiProperty({
-  //   required: false,
-  // })
-  // @IsString()
-  // categoryCode?: string;
+  @ApiProperty({
+    required: false,
+  })
+  @IsOptional()
+  @IsString()
+  categoryCode?: string;
 
   // // 值域代码
   // @IsString()
@@ -166,3 +167,14 @@ export class ListMetadataDto extends PagingDto {
   status?: string;
 }
 
+export class DatasourceFeildDto {
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  fieldName: string;
+
+  @ApiProperty({ required: false })
+  @IsOptional()
+  @IsString()
+  fieldLabel: string
+}

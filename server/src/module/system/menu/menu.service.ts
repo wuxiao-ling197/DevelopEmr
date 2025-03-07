@@ -18,7 +18,7 @@ export class MenuService {
     private readonly sysMenuEntityRep: Repository<SysMenuEntity>,
     @InjectRepository(SysRoleWithMenuEntity)
     private readonly sysRoleWithMenuEntityRep: Repository<SysRoleWithMenuEntity>,
-  ) {}
+  ) { }
 
   async create(createMenuDto: CreateMenuDto) {
     const res = await this.sysMenuEntityRep.save(createMenuDto);
@@ -40,17 +40,25 @@ export class MenuService {
   }
 
   async treeSelect() {
-    const res = await this.sysMenuEntityRep.find({
-      where: {
-        delFlag: '0',
-      },
-    });
-    const tree = ListToTree(
-      res,
-      (m) => m.menuId,
-      (m) => m.menuName,
-    );
-    return ResultData.ok(tree);
+    console.log(111);
+    try {
+      const res = await this.sysMenuEntityRep.find({
+        where: {
+          delFlag: '0',
+        },
+      });
+      const tree = ListToTree(
+        res,
+        (m) => m.menuId,
+        (m) => m.menuName,
+      );
+      console.log(tree);
+
+      return ResultData.ok(tree);
+    } catch (err) {
+      console.log(err);
+
+    }
   }
 
   async roleMenuTreeselect(roleId: number): Promise<any> {
@@ -143,6 +151,11 @@ export class MenuService {
     });
     // 构建前端需要的菜单树
     const menuTree = buildMenus(menuList);
+    console.log(menuTree);
+    console.log('menuID::');
+    console.log(menuIds);
+
+
     return menuTree;
   }
 }

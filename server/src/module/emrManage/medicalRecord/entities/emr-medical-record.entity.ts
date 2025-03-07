@@ -1,5 +1,6 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { Exclude } from 'class-transformer';
+import { BusinessEnum } from '../dto';
 @Entity('emr_medical_record', {
   comment: '电子病历表',
 })
@@ -10,13 +11,13 @@ import { Exclude } from 'class-transformer';
 export class MedicalRecordEntity {
   @PrimaryGeneratedColumn({ type: 'int', name: 'id', comment: 'id' })
   public id: number;
-  
+
   @Column({ type: 'int', name: 'create_uid', comment: '创建人' })
   public createUID: number;
-  
+
   @Column({ type: 'int', name: 'write_uid', comment: '修改人' })
   public writeUID: number;
-  
+
   @Column({ type: 'varchar', name: 'active', comment: '是否可用' })
   public active: string;
 
@@ -26,21 +27,24 @@ export class MedicalRecordEntity {
   @Column({ type: 'varchar', name: 'patient_id', nullable: false, comment: '病人的unique ID' })
   public patientID: string;
 
-  @Column({ type: 'varchar', name: 'payload_id', nullable: false, comment: '病历文档id' })
+  @Column({ type: 'varchar', name: 'payloadId', nullable: false, comment: '病历文档id' })
   public payloadID: string;
+
+  @Column({ type: 'varchar', name: 'business_type', comment: '业务类型', enum: BusinessEnum })
+  public businessType: string;
 
   @Column({ type: 'varchar', name: 'meta', length: 30, comment: '版本' })
   public meta: string;
 
-  @Column({ type: 'json', name: 'header', nullable: false, comment: '病历头信息' })
-  public header: JSON;
+  @Column({ type: 'jsonb', name: 'header', nullable: false, comment: '病历头信息' })
+  public header: Record<string, any>;
 
   //employee和priority
-  @Column({ type: 'json', name: 'participants', comment: '参与者' })
-  public participants: JSON;
-  
-  @Column({ type: 'json', name: 'payload', default: '', comment: '病历文档' })
-  public payload: JSON;
+  @Column({ type: 'jsonb', name: 'participants', comment: '参与者' })
+  public participants: Record<string, any>;
+
+  @Column({ type: 'jsonb', name: 'payload', default: '', comment: '病历文档' })
+  public payload: Record<string, any>;
 
   @Column({ type: 'timestamp', name: 'create_date', comment: '创建时间' })
   public createDate: Date;

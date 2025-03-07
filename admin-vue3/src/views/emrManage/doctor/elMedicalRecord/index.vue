@@ -33,7 +33,7 @@
             </el-col>
             <el-col :span="8">
               <div class="grid-content ep-bg-purple">
-                <!-- <el-button @click="editMedicalRecordEvt('edit')" type="primary" :icon="Edit">编辑病历</el-button> -->
+                <el-button @click="editMedicalRecordEvt('edit')" type="primary" :icon="Edit">编辑病历</el-button>
                 <el-button @click="historyMREvt" type="primary" :icon="Share">历史病历</el-button>
                 <el-button type="primary" :icon="Delete" />
               </div>

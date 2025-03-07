@@ -53,17 +53,23 @@ export class MainController {
   @Post('/login')
   @HttpCode(200)
   login(@Body() user: LoginDto, @Request() req) {
-    const agent = Useragent.parse(req.headers['user-agent']);
-    const os = agent.os.toJSON().family;
-    const browser = agent.toAgent();
-    const clientInfo = {
-      userAgent: req.headers['user-agent'],
-      ipaddr: req.ip,
-      browser: browser,
-      os: os,
-      loginLocation: '',
-    };
-    return this.mainService.login(user, clientInfo);
+    try {
+      const agent = Useragent.parse(req.headers['user-agent']);
+      const os = agent.os.toJSON().family;
+      const browser = agent.toAgent();
+      const clientInfo = {
+        userAgent: req.headers['user-agent'],
+        ipaddr: req.ip,
+        browser: browser,
+        os: os,
+        loginLocation: '',
+      };
+      return this.mainService.login(user, clientInfo);
+    } catch (err) {
+      console.log('liginController---------------error-');
+      console.log(err);
+
+    }
   }
 
   @ApiOperation({
@@ -243,7 +249,7 @@ export class MainController {
     const user = new LoginDto();
     user.username = 'admin';
     user.password = 'odoo18';
-    // const employee = this.mafService.createTotpcode(2, user);
+    // const employee = this.mafService.createTotpcode(8, user);
     // const ress = this.mafService.disableTotp(1906);
 
     // 直接在Repository 上进行update操作

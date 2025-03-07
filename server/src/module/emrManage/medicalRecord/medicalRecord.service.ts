@@ -19,23 +19,24 @@ import { HrDeptService } from 'src/module/share/hrdept/hrdept.service';
 @Injectable()
 export class MedicalRecordService {
   constructor(
-    @InjectRepository(MedicalRecordEntity,'shared')
+    @InjectRepository(MedicalRecordEntity, 'odoo18-2')
     private readonly MedicalRecordRepo: Repository<MedicalRecordEntity>,
     private readonly deptService: HrDeptService,
     private readonly jwtService: JwtService,
     private readonly redisService: RedisService,
     // private readonly configService: ConfigService,
     private readonly axiosService: AxiosService,
-  ) {}
+  ) { }
 
-  async generateID(params?:any){
+  async generateID(params?: any) {
     // 生成jobID
     const keyPrefix = params || 'job_id_'
-    try{
+    try {
       const jobId = await this.redisService.generateID(keyPrefix);
-      console.log('-------testJobId------::',jobId);
-      return ResultData.ok(jobId);
-    }catch(err){
+      console.log('-------testJobId------::', jobId);
+      return jobId + ''
+      // return ResultData.ok(jobId);
+    } catch (err) {
       console.log(err);
     }
   }
@@ -46,47 +47,32 @@ export class MedicalRecordService {
    */
   async create(createMedicalRecordDto: CreateMedicalRecordDto) {
     console.log('=====================createMR=====');
-    
+
     console.log(createMedicalRecordDto);
     const writeDate = new Date();
     const createDate = new Date();
     // if(createMedicalRecordDto.payload && createMedicalRecordDto.header){
-    let  payload = JSON.parse(createMedicalRecordDto.payload)
-    let  header = JSON.parse(createMedicalRecordDto.header)
-    let  participants = JSON.parse(createMedicalRecordDto.participants)
-    // }
-    // 假设 createMedicalRecordDto 中有一个名为 id 的属性，并且它是可选的或您打算在数据库中生成它
-    // 如果 id 是从 DTO 中直接获取的，并且应该是 number 类型，请确保它的类型正确
+    let payload = createMedicalRecordDto.payload
+    let header = createMedicalRecordDto.header
+    let participants = createMedicalRecordDto.participants
     const emr: MedicalRecordEntity = {
-      ...createMedicalRecordDto, // 这里假设 createMedicalRecordDto 中的属性与 MedicalRecordEntity 兼容
+      ...createMedicalRecordDto,
       header,
       participants,
       payload,
       writeDate,
       // 暂定固定属性
-      id:100, 
+      id: 100,
       createDate,
-      // 如果 id 是从 DTO 中获取的，并且应该是 number，但 DTO 中是 string，您需要进行转换
-      // id: Number(createMedicalRecordDto.id), // 仅在需要时添加此行，并且确保这是正确的行为
-      // 如果 id 是自动生成的，则不要包含此行
     };
-
-    // 删除任何不应该在创建时设置的属性，比如如果 id 是自动生成的
     delete emr.id; // 仅在 id 是自动生成的并且不应该在创建时设置时添加此行
-    const res = await this.MedicalRecordRepo.save(emr);
-    
-    // 处理和病历表有关的关联表，进行插入删除行等处理
-    // 在createMedicalRecordDto中postIds定义为number数组，因此可以map
-    // const postEntity = this.MedicalRecordWithPostEntityRep.createQueryBuilder('postEntity');
-    // const postValues = createMedicalRecordDto.postIds.map((id) => {
-    //   return {
-    //     MedicalRecordId: res.id,
-    //     postId: id,
-    //   };
-    // });
-    // postEntity.insert().values(postValues).execute();
-
-    return ResultData.ok();
+    try {
+      const res = await this.MedicalRecordRepo.save(emr);
+      return ResultData.ok(res);
+    } catch (err) {
+      console.log(err);
+      return ResultData.fail(500, 'Failed to create template');
+    }
   }
 
   /**
@@ -106,7 +92,7 @@ export class MedicalRecordService {
    * 查找患者病历
    * @param patient 
    */
-  async findPatientMR(patientID: any){
+  async findPatientMR(patientID: any) {
     const medicalRecord = this.MedicalRecordRepo.createQueryBuilder('medicalRecord');
     medicalRecord.where('medicalRecord.patient_id = :patientID', { patientID: patientID });
     const list = await medicalRecord.getMany();
@@ -120,21 +106,21 @@ export class MedicalRecordService {
    * @returns
    */
   // async findPostAndRoleAll() {
-    // const posts = await this.sysPostEntityRep.find({
-    //   where: {
-    //     delFlag: '0',
-    //   },
-    // });
-    // const roles = await this.roleService.findRoles({
-    //   where: {
-    //     delFlag: '0',
-    //   },
-    // });
+  // const posts = await this.sysPostEntityRep.find({
+  //   where: {
+  //     delFlag: '0',
+  //   },
+  // });
+  // const roles = await this.roleService.findRoles({
+  //   where: {
+  //     delFlag: '0',
+  //   },
+  // });
 
-    // return ResultData.ok({
-    //   posts,
-    //   roles,
-    // });
+  // return ResultData.ok({
+  //   posts,
+  //   roles,
+  // });
   // }
 
 
@@ -261,7 +247,7 @@ export class MedicalRecordService {
    * 停用病历
    * @param changeStatusDto 
    */
-  async changeStatus(changeStatusDto: any){
+  async changeStatus(changeStatusDto: any) {
 
   }
   /**
@@ -285,27 +271,27 @@ export class MedicalRecordService {
    * @param res
    */
   async export(res: Response, body: ListMedicalRecordDto, MedicalRecord) {
-  //   delete body.pageNum;
-  //   delete body.pageSize;
-  //   const list = await this.findAll(body, MedicalRecord);
-  //   const options = {
-  //     sheetName: '用户数据',
-  //     data: list.data.list,
-  //     header: [
-  //       { title: '用户序号', dataIndex: 'MedicalRecordId' },
-  //       { title: '登录名称', dataIndex: 'MedicalRecordName' },
-  //       { title: '用户昵称', dataIndex: 'nickName' },
-  //       { title: '用户邮箱', dataIndex: 'email' },
-  //       { title: '手机号码', dataIndex: 'phonenumber' },
-  //       { title: '用户性别', dataIndex: 'sex' },
-  //       { title: '账号状态', dataIndex: 'status' },
-  //       { title: '最后登录IP', dataIndex: 'loginIp' },
-  //       { title: '最后登录时间', dataIndex: 'loginDate', width: 20 },
-  //       { title: '部门', dataIndex: 'dept.deptName' },
-  //       { title: '部门负责人', dataIndex: 'dept.leader' },
-  //     ],
-  //   };
-  //   ExportTable(options, res);
+    //   delete body.pageNum;
+    //   delete body.pageSize;
+    //   const list = await this.findAll(body, MedicalRecord);
+    //   const options = {
+    //     sheetName: '用户数据',
+    //     data: list.data.list,
+    //     header: [
+    //       { title: '用户序号', dataIndex: 'MedicalRecordId' },
+    //       { title: '登录名称', dataIndex: 'MedicalRecordName' },
+    //       { title: '用户昵称', dataIndex: 'nickName' },
+    //       { title: '用户邮箱', dataIndex: 'email' },
+    //       { title: '手机号码', dataIndex: 'phonenumber' },
+    //       { title: '用户性别', dataIndex: 'sex' },
+    //       { title: '账号状态', dataIndex: 'status' },
+    //       { title: '最后登录IP', dataIndex: 'loginIp' },
+    //       { title: '最后登录时间', dataIndex: 'loginDate', width: 20 },
+    //       { title: '部门', dataIndex: 'dept.deptName' },
+    //       { title: '部门负责人', dataIndex: 'dept.leader' },
+    //     ],
+    //   };
+    //   ExportTable(options, res);
   }
 }
 

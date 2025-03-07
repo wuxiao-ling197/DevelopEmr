@@ -10,7 +10,7 @@ import { TemplateEntity } from './entities/emr_template.entity';
 @Module({
   imports: [
     // TypeOrmModule.forFeature([TemplateEntity, SysDeptEntity, SysRoleEntity, SysPostEntity, SysTemplateWithPostEntity, SysTemplateWithRoleEntity]),
-    TypeOrmModule.forFeature([TemplateEntity,],'shared'),
+    TypeOrmModule.forFeature([TemplateEntity,], 'odoo18-2'),
     JwtModule.registerAsync({
       imports: [ConfigModule],
       useFactory: async (config: ConfigService) => ({
@@ -23,4 +23,4 @@ import { TemplateEntity } from './entities/emr_template.entity';
   providers: [TemplateService],
   exports: [TemplateService],
 })
-export class TemplateModule {}
+export class TemplateModule { }

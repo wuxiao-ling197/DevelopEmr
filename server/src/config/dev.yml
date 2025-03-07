@@ -43,13 +43,31 @@ db:
     supportBigNumbers: true
     bigNumberStrings: true
 
+  odoo18-2:
+    # host: '192.168.0.40'
+    # database: 'odoo18'
+    host: '192.168.0.2'
+    username: 'odoo'
+    password: 'odoo'
+    database: 'odoo18_share2'
+    port: 5432
+    ssldisable: false
+    # charset: 'utf8mb4'
+    logger: 'file'
+    logging: true
+    multipleStatements: true
+    dropSchema: false
+    synchronize: false
+    supportBigNumbers: true
+    bigNumberStrings: true
+
   shared:
     host: '192.168.0.2'
     # username: 'odoo17'
     # password: 'odoo17'
     username: 'odoo'
     password: 'odoo'
-    database: 'odoo_share'
+    database: 'odoo18_share1'
     port: 5432
     ssldisable: false
     # charset: 'utf8mb4'
@@ -88,6 +106,8 @@ perm:
         { path: '/logout', method: 'POST' },
         { path: '/perm/{id}', method: 'GET' },
         { path: '/upload', method: 'POST' },
+        # { path: '/emrManage/dynamicOptions/deptOptionlist', method: 'GET'},
+        { path: '/emrManage/dynamicOptions/getTemplateFeildList', method: 'GET'}
       ]
 
 # 用户相关

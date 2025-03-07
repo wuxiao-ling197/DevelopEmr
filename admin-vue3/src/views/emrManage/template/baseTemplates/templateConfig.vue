@@ -3,7 +3,7 @@
         <!-- <div class="form-box"> -->
         <el-form :model="localFormConf" label-width="auto" style="max-width: 600px">
             <el-form-item label="模板类型">
-                <el-radio-group v-model="localFormConf.tempType">
+                <el-radio-group v-model="localFormConf.templateType">
                     <el-radio v-for="tempType in PayloadTypeEnum" :key="tempType" :label="tempType">{{tempType}}</el-radio>
                 </el-radio-group>
             </el-form-item>

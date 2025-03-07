@@ -22,12 +22,23 @@ const service = axios.create({
 
 // request拦截器
 service.interceptors.request.use(config => {
+
   // 是否需要设置 token
   const isToken = (config.headers || {}).isToken === false
   // 是否需要防止数据重复提交
   const isRepeatSubmit = (config.headers || {}).repeatSubmit === false
   if (getToken() && !isToken) {
     config.headers['Authorization'] = 'Bearer ' + getToken() // 让每个请求携带自定义token 请根据实际情况自行修改
+  }
+  // 关键点：匹配包含特征路径的请求
+  if (config.url.includes('/getDynamicOptions')) {
+    console.log('dynamicOptionApi1');
+    config.headers.Authorization = 'Bearer ' + getToken() // 运行时动态注入Token
+  }
+  // 识别动态数据源请求（根据URL特征）
+  if (config.url.startsWith('/dev-api/emrManage/Metadata/getDynamicOptions')) {
+    console.log('dynamicOptionApi2');
+    config.headers.Authorization = 'Bearer ' + getToken(); // 注入Token
   }
   // get请求映射params参数
   if (config.method === 'get' && config.params) {
