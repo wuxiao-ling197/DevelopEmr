@@ -17,6 +17,7 @@
           type="text"
           size="large"
           auto-complete="off"
+          @blur="handleInput(1)"
           placeholder="账号"
         >
           <template #prefix>
@@ -33,7 +34,7 @@
           size="large"
           auto-complete="off"
           placeholder="密码"
-          @keyup.enter="handleLogin"
+          @blur="handleInput(2)"
         >
           <template #prefix>
             <!-- <svg-icon icon-class="password" class="el-input__icon input-icon" /> -->
@@ -55,9 +56,6 @@
             ><svg-icon icon-class="validCode" class="el-input__icon input-icon"
           /></template>
         </el-input>
-        <el-dialog class="qr-code" v-model="qrCodeBase64" width="500" center title="请扫描二维码获取认证码">
-          <img :src="qrCodeBase64" alt=""/>
-        </el-dialog>
       </el-form-item>
       <el-checkbox
         v-model="loginForm.model.rememberMe"
@@ -95,30 +93,24 @@
     </el-form>
     <!--  底部  -->
     <div class="el-login-footer">
-      <span>Copyright © 2018-2023 ruoyi.vip All Rights Reserved.</span>
+      <span>Copyright © 2021-2025 emr.tbird.com All Rights Reserved.</span>
     </div>
   </div>
 </template>
 
 <script setup>
 import useAuthCode from "@/hooks/useAuthCode";
-import { validateTotp, getMoreinfo } from "@/api/login";
-import { createTotp, closeTotp } from "@/api/system/user";
+import { validateTotp, getQRcode, disableTotp, getMoreinfo } from "@/api/login";
+// import { createTotp, closeTotp } from "@/api/system/user";
 import { ElMessage } from "element-plus";
 import useUserStore from "@/store/modules/user";
 
 console.log("user store totp flag=", useUserStore().isValid);
 const userStore = useUserStore();
 const authCodeInfo = useAuthCode.authCodeInfo;
-// 重置报错userID没有，故放开下面两行
-const currentUser = JSON.parse((useUserStore().currentUser));
-const userId = authCodeInfo.uuid || String(currentUser.id)
-
-// const proxy = getCurrentInstance()
 
 const route = useRoute();
 const router = useRouter();
-const qrCodeBase64 = ref(); //二维码显示标志
 
 const loginRef = ref();
 const loginForm = reactive({
@@ -139,6 +131,10 @@ const loginForm = reactive({
 const register = ref(true);
 const redirect = ref(undefined);
 
+// 监听用户密码输入情况
+const isNameFinish = ref(false)
+const isPwdFinish = ref(false)
+
 watch(
   route,
   (newRoute) => {
@@ -147,9 +143,40 @@ watch(
   { immediate: true }
 );
 
+// 监听用户名和密码输入框是否输入完毕，然后查询totp认证信息
+function handleInput(inputNumber) {
+  if(inputNumber === 1) {
+    isNameFinish.value = true;
+  } else if(inputNumber === 2) {
+    isPwdFinish.value = true;
+  }
+  if (isNameFinish.value && isPwdFinish.value) {
+    hanldeQrCode();
+  }
+}
+
+function hanldeQrCode () {
+  const apiData = reactive({
+    name: loginForm.model.username,
+    pass: loginForm.model.password,
+    code: loginForm.model.code,
+  });
+  getQRcode(apiData).then((res) => {
+    if (res.data.qrcode != "") {
+      ElMessageBox.alert(
+        `<h3 style="margin-left: 80px;color: red;font-size: 24px;font-weight: 500;">请先扫描认证二维码！</h3>
+        <img src="${res.data.qrcode}" style="margin: 0px 40px;width: 300px;height: 300px;" />`, // 使用 HTML 插入图片
+        '',
+        {
+          confirmButtonText: '关闭',
+          dangerouslyUseHTMLString: true, // 允许渲染 HTML
+        }
+      );
+    }
+  });
+}
+
 function handleLogin() {
-  console.log('loginref=', loginRef);
-  
   loginRef.value.validate((valid) => {
     if (valid) {
       authCodeInfo.loading = true;
@@ -180,16 +207,12 @@ function handleLogin() {
 
 function validCode(value) {
   validateTotp(value).then((response) => {
-    qrCodeBase64.value = response.data.qrCodeDataURL;
-    authCodeInfo.qrCode = response.data.qrCodeDataURL;
-
     if (response.data.verify) {
       ElMessage({
         message: " 登录成功，请妥善保存您的认证码。",
         type: "success",
       });
       userStore.changeTotpState(response.data.verify); //使用action来修改更加合理
-      qrCodeBase64.value = undefined;
       //路由跳转
       router.push({ path: redirect.value || "/" });
     }
@@ -207,24 +230,15 @@ function resetTotp() {
   //   message: "若需重置认证码请联系管理员操作",
   //   type: "warning",
   // });
-  // console.log(proxy);
-  
-  createTotp(userId).then((res) => {
-    if (!res.data.activateTotp) {
-      setTimeout(() => {
-        proxy.$modal
-          .confirm("用户 " + row.login + " 已启用双重验证，是否需要重置？")
-          .then(() => {
-            closeTotp(userId).then((res) => {
-              createTotp(userId).then((res) => {
-                proxy.$modal.msgSuccess("重置已完成");
-              });
-            });
-          });
-      }, 150);
+  const user = useUserStore().loginuser;
+  console.log('reset=', user);
+  disableTotp(loginForm.model.username).then((res)=>{
+    console.log('重置返回结果：', res);
+    if (res.data == 200) {
+      ElMessage.success("重置成功，请重新进行双重验证！");
+      handleInput();
     }
-    proxy.$modal.msgSuccess("操作成功");
-  });
+  })
 }
 
 getMoreinfo();

@@ -17,6 +17,7 @@ import { HrDeptEntity } from '../share/hrdept/entities/hrdept.entity';
 import { ResUserService } from '../share/resuser/resuser.service';
 import { CompUserEntity } from '../share/resuser/entities/comuserrel';
 import { MfaService } from '../mfa/mfa.service';
+import { OdooWebSocketService } from '../websocket/websocket.service';
 // import { sendMsg } from 'src/common/utils/robot';
 // import { OAmanageController } from '../share/OAmanage/oamanage.controller';
 // import { faceIdValid, faceIdValidWithPeriod, phoneStatus, phoneValid } from 'src/common/utils/faceid';
@@ -25,13 +26,13 @@ import { MfaService } from '../mfa/mfa.service';
 @Controller('/')
 export class MainController {
   constructor(
-    @InjectRepository(HrEmpEntity, 'shared')
+    @InjectRepository(HrEmpEntity, 'odoo18')
     private readonly employeeEntityRep: Repository<HrEmpEntity>,
-    @InjectRepository(ResUserEntity, 'shared')
+    @InjectRepository(ResUserEntity, 'odoo18')
     private readonly userRepo: Repository<ResUserEntity>,
-    @InjectRepository(HrDeptEntity, 'shared')
+    @InjectRepository(HrDeptEntity, 'odoo18')
     private readonly deptEntityRep: Repository<HrDeptEntity>,
-    @InjectRepository(CompUserEntity, 'shared')
+    @InjectRepository(CompUserEntity, 'odoo18')
     private readonly userWithcompanyEntityRep: Repository<CompUserEntity>,
 
     private readonly mainService: MainService,
@@ -39,6 +40,7 @@ export class MainController {
     private readonly configService: ConfigService,
     private readonly resuserService: ResUserService,
     private readonly mafService: MfaService,
+    private readonly odoowsService: OdooWebSocketService,
   ) { }
 
   // private verificationCodes = new Map<string, string>(); // 用于存储手机号和验证码的映射
@@ -52,7 +54,7 @@ export class MainController {
   })
   @Post('/login')
   @HttpCode(200)
-  login(@Body() user: LoginDto, @Request() req) {
+  async login(@Body() user: LoginDto, @Request() req) {
     try {
       const agent = Useragent.parse(req.headers['user-agent']);
       const os = agent.os.toJSON().family;
@@ -64,11 +66,12 @@ export class MainController {
         os: os,
         loginLocation: '',
       };
+      // odoo会话回正
+      await this.odoowsService.getOdooSessionAuth(user);
       return this.mainService.login(user, clientInfo);
     } catch (err) {
       console.log('liginController---------------error-');
       console.log(err);
-
     }
   }
 

@@ -37,10 +37,4 @@ export class AuthTotpEntity {
   @ApiProperty({ type: Date, description: '更新时间' })
   @UpdateDateColumn({ type: 'timestamp', name: 'write_date', comment: '更新时间' })
   public writeDate: Date;
-
-  //没添加外键连接的必要，因为只在第一次存入totp激活时的信息发生
-  //   @ManyToOne(() => ResUserEntity, (user) => user.authtotps)
-  //   // 在一对多/多对一关系中，外键只存在于多端
-  //   @JoinColumn({ name: 'user_id' })
-  //   user: ResUserEntity;
 }

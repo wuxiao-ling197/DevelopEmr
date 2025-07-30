@@ -60,15 +60,15 @@ export function createTotp() {
 }
 
 //获取totp认证码
-export function generatoeQRcode(data) {
+export function getQRcode(data) {
   return request({
     url: '/auth/totp/qrcode',
     headers: {
       isToken: false
     },
-    method: 'get',
+    method: 'post',
     data: data,
-    timeout: 20000
+    // timeout: 20000
   })
 }
 
@@ -81,7 +81,19 @@ export function validateTotp(data) {
     },
     method: 'post',
     data: data,
-    timeout: 20000
+    // timeout: 20000
+  })
+}
+
+export function disableTotp() {
+  return request({
+    url: '/auth/totp/disable'+ userId,
+    headers: {
+      isToken: false
+    },
+    method: 'delete',
+    data: data,
+    // timeout: 20000
   })
 }
 
