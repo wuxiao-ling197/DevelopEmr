@@ -11,7 +11,7 @@ import useUserStore from '@/store/modules/user';
 
 NProgress.configure({ showSpinner: false });
 
-const whiteList = ['/login', '/register', '/smscode', '/moreinfo', '/auth/totp/verify'];
+const whiteList = ['/login', '/register', '/smscode', '/moreinfo', '/auth/totp/verify', '/auth/totp/qrcode', '/auth/totp/disable/:userId'];
 
 // 全局路由前置守卫 当一个导航被触发时，首先被调用的总是全局前置守卫;
 router.beforeEach((to, from, next) => {
