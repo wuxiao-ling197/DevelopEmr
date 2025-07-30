@@ -85,7 +85,7 @@ perm:
         { path: '/moreinfo', method: 'GET'},
         { path: '/auth/totp/verify', method: 'POST'},
         { path: '/auth/totp/qrcode', method: 'POST'},
-        { path: '/auth/totp/disable/:userId', method: 'DELETE', skipToken: false }, // 需 Token
+        { path: '/auth/totp/disable/:userId', method: 'DELETE', skipToken: false },
         { path: '/register', method: 'POST' },
         { path: '/smscode', method: 'POST' },
         { path: '/login', method: 'POST' },

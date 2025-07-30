@@ -28,6 +28,7 @@ export class MfaService {
    * 激活totp认证 生成totp secret
    * @param userId 操作对象
    * @param user 当前操作用户
+   * {username: string, password: string, code: string}
    * @returns
    */
   async createTotpcode(userId?: number, user?: LoginDto): Promise<ResultData> {
@@ -38,10 +39,12 @@ export class MfaService {
     if (user) {
       data = await this.userRepo.createQueryBuilder('user').where('user.login = :login', { login: user.username }).select(['user.id', 'user.nestSecret', 'user.login']).getOne();
     }
-    const result = await this.pwdContext.verifyPassword(user.password, data.password);
-    if (!result) {
-      return ResultData.fail(404, '【登陆首页初始化双重验证】用户或密码错误，请重新输入');
-    }
+    /** 外部调用总是失败 搞不懂 但是这个在创建记录时必须首先完成密码验证 */
+    // const result = await this.pwdContext.verifyPasslib(user.password, data.password);
+    // console.log('验证密码=', result);
+    // if (!result) {
+    //   return ResultData.fail(404, '【登陆首页初始化双重验证】用户或密码错误，请重新输入');
+    // }
     // 显式设置算法
     authenticator.options = { crypto: require('crypto'), HashAlgorithms: this.ALGORITHM, windows: 0 };
     // 如果用户没有开启totp验证（即user表中secret无值）

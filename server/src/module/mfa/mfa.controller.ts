@@ -40,13 +40,14 @@ export class MfaController {
     required: true,
   })
   @HttpCode(200)
-  @Get('/totp/qrcode')
+  @Post('/totp/qrcode')
   async getQRcode(@Body() user: LoginDto): Promise<ResultData> {
     // 显式设置算法
     authenticator.options = { crypto: require('crypto'), HashAlgorithms: this.mafService.ALGORITHM, windows: 0 };
     const data = await this.userRepo.findOne({
       where: { login: user.username },
     });
+    
     const totp = await this.totpEntityRep.findOne({
       where: { userId: data.id, },
       order: { id: 'DESC' }

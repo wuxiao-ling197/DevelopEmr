@@ -102,7 +102,7 @@
 import useAuthCode from "@/hooks/useAuthCode";
 import { validateTotp, getQRcode, disableTotp, getMoreinfo } from "@/api/login";
 // import { createTotp, closeTotp } from "@/api/system/user";
-import { ElMessage } from "element-plus";
+import { ElMessage, ElMessageBox } from "element-plus";
 import useUserStore from "@/store/modules/user";
 
 console.log("user store totp flag=", useUserStore().isValid);
@@ -156,12 +156,13 @@ function handleInput(inputNumber) {
 }
 
 function hanldeQrCode () {
-  const apiData = reactive({
-    name: loginForm.model.username,
-    pass: loginForm.model.password,
-    code: loginForm.model.code,
-  });
-  getQRcode(apiData).then((res) => {
+  //const apiData = reactive({
+   // username: loginForm.model.username,
+   // password: loginForm.model.password,
+   // code: loginForm.model.code,
+  //});
+  getQRcode(loginForm.model).then((res) => {
+  console.log('qrcode=', res);
     if (res.data.qrcode != "") {
       ElMessageBox.alert(
         `<h3 style="margin-left: 80px;color: red;font-size: 24px;font-weight: 500;">请先扫描认证二维码！</h3>

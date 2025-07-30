@@ -47,14 +47,13 @@ export function logout() {
 }
 
 // 创建/获取totp
-export function createTotp() {
+export function createTotp(userId) {
   return request({
     url: '/auth/totp/enable'+ userId,
     headers: {
       isToken: false
     },
     method: 'get',
-    data: data,
     timeout: 20000
   })
 }
@@ -85,7 +84,7 @@ export function validateTotp(data) {
   })
 }
 
-export function disableTotp() {
+export function disableTotp(userId) {
   return request({
     url: '/auth/totp/disable'+ userId,
     headers: {
