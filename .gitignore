@@ -1,1 +1,13 @@
 .DS_Store
+
+/dist
+/node_modules
+/build
+
+# temp directory
+.temp
+.tmp
+
+# Logs
+logs
+*.log
