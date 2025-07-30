@@ -58,6 +58,14 @@ const version = ref('3.8.6')
 function goTarget(url) {
   window.open(url, '__blank')
 }
+
+function initWS() {
+  initConnect().then((res) => {
+    console.log("初始化ws连接，返回结果：", res);
+    ElMessage.success("初始化ws连接，返回结果：", res);
+  });
+}
+initWS();
 </script>
 
 <style scoped lang="scss">
